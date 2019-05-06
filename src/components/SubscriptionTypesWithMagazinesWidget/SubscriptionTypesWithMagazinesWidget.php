@@ -11,6 +11,12 @@ use Nette\Application\UI\Form;
 use Nette\Localization\ITranslator;
 use Tomaj\Form\Renderer\BootstrapRenderer;
 
+/**
+ * Widget used in subscription type detail.
+ * Used for listing and editing  list of magazines.
+ *
+ * @package Crm\IssuesModule\Components
+ */
 class SubscriptionTypesWithMagazinesWidget extends BaseWidget
 {
     private $templateName = 'subscription_types_with_magazines_widget.latte';
