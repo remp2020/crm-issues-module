@@ -1,0 +1,102 @@
+menu:
+	issues: Vydania
+	magazines: Magazíny
+
+data:
+	issues:
+		fields:
+			issued_at: Dátum vydania
+			is_published: Publikované
+			cover: Obálka
+			name: Názov
+			original_files: Zdrojové súbory
+			state: Stav
+			identifier: Identifikátor
+			magazine: Magazín
+		required:
+			issued_at: Dátum vydania je povinný
+		placeholder:
+			issued_at: napríklad 13.2.2015
+			name: Napríklad 'Vydanie 156'
+		description:
+			original_files: Súboru budu zoradené abecedne podľa ich názvu
+		values:
+			is_published:
+				"yes": Publikované
+				"no": Skryté
+	magazines:
+		fields:
+			name: Názov
+			identifier: Identifikátor
+			issues: Vydania
+			is_default: Prednastavený
+		required:
+			name: Názov je povinný
+			identifier: Identifikátor je povinný
+		placeholder:
+			name: napríklad Časopis život
+			identifier: napríklad casopis-zivot
+
+admin:
+	issues:
+		default:
+			title: Vydania
+			new: Nové vydanie
+		new:
+			title: Nové vydanie
+			back: späť na vydania
+		edit:
+			title: Uprav vydanie %name%
+			header: Uprav vydanie
+			back: späť na vydanie
+		show:
+			back: späť na vydania
+			edit: Uprav vydanie
+			basic_informations: Základne informácie
+			no_pages: Toto vydanie zatiaľ nemá vygenerované žiadne zobraziteľné stránky. Generovanie prebieha automaticky každú minútu.
+			pages: Stránky
+			issue_size: Veľkosť čísla
+			delete_issue: Zmaž vydanie so všetkými súbormi
+
+		messages:
+			issue_created: Vydanie bolo vytvorené
+			issue_updated: Vydanie bolo upravené
+			issue_deleted: Vydanie bolo zmazané
+			issue_not_found: "Nepodarilo sa nájsť vydanie s ID [#%issue_id%]"
+
+	magazines:
+		default:
+			title: Magazíny
+			new: Nový magazín
+		new:
+			title: Nový magazín
+			back: späť na zoznam
+		edit:
+			title: Uprav magazín
+			header: Uprav magazín
+			back: späť na detail
+		show:
+			edit: Uprav magazín
+			back: späť na zoznam
+		messages:
+			magazine_created: Magazín bol vytvorený
+			magazine_updated: Magazín bol upravený
+
+components:
+	subscription_types_with_magazines:
+		title: Magazíny
+		issues: vydaní
+		add_magazine: Pridaj magazín
+		remove_magazine: Zmazať
+		fields:
+			magazine:
+				title: Magazíny
+				required: Magazín je povinný
+				placeholder: '-- Vyber magazín'
+		error:
+			missing_subscription_type_id: Chýba ID typu predplatného. Pridanie magazínu nie je možné.
+			no_magazines_to_add: Žiadne magazíny na pridanie.
+		messages:
+			no_magazines: Tento typ predplatného neobsahuje žiaden magazín.
+			added: Magazín '%magazine_name%' bol pridaný do tohto typu predplatného.
+			removed: Magazín '%magazine_name%' bol odstránený z tohto typu predplatného.

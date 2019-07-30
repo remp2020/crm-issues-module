@@ -1,0 +1,31 @@
+services:
+	moduleManager:
+		setup:
+			- addModule(Crm\IssuesModule\IssuesModule())
+
+	- Crm\IssuesModule\Api\IssuesDetailApiHandler
+	- Crm\IssuesModule\Api\IssuesListingApiHandler
+	- Crm\IssuesModule\Api\MagazineOverviewApiHandler
+	- Crm\IssuesModule\Api\MagazinesListingApiHandler
+	- Crm\IssuesModule\Commands\CoverFtpUploadCommand
+	- Crm\IssuesModule\Commands\ImportCommand
+	- Crm\IssuesModule\Commands\PdfConverterCommand
+	- Crm\IssuesModule\Commands\SyncFtpIssuesCommand
+	- Crm\IssuesModule\Components\SubscriptionTypesWithMagazinesWidget
+	- Crm\IssuesModule\Forms\IssuesFormFactory
+	- Crm\IssuesModule\Forms\MagazineFormFactory
+	- Crm\IssuesModule\Pdf\Converter
+	- Crm\IssuesModule\Repository\IssuesRepository
+	- Crm\IssuesModule\Repository\IssuePagesRepository
+	- Crm\IssuesModule\Repository\IssueSourceFilesRepository
+	- Crm\IssuesModule\Repository\MagazinesRepository
+	- Crm\IssuesModule\Repository\SubscriptionTypeMagazinesRepository
+
+	filePatternProcessor: Crm\IssuesModule\Model\Issue\FilePatternProcessor
+	issuesFileSystem: League\Flysystem\Filesystem(League\Flysystem\Adapter\Local('%appDir%/../content/issues'))
+	issuesCoverNewsMuseumFileSystem: League\Flysystem\Filesystem(League\Flysystem\Adapter\Local('%appDir%/../content/newsmuseum'))
+	-
+		class: League\Flysystem\MountManager
+		setup:
+			- mountFilesystem('issues', @issuesFileSystem)
+			- mountFilesystem('newsmuseum', @issuesCoverNewsMuseumFileSystem)
