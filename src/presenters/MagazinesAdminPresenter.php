@@ -20,6 +20,10 @@ class MagazinesAdminPresenter extends AdminPresenter
         $this->template->magazines = $this->magazinesRepository->all();
     }
 
+    public function renderNew()
+    {
+    }
+
     public function renderEdit($id)
     {
         $this->template->magazine = $this->magazinesRepository->find($id);

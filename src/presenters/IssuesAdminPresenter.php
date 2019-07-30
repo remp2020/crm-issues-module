@@ -54,6 +54,10 @@ class IssuesAdminPresenter extends AdminPresenter
         $this->template->totalDiskSpace = $this->issuesRepository->totalDiskSpace($issue);
     }
 
+    public function renderNew()
+    {
+    }
+
     public function renderEdit($id)
     {
         $this->template->issue = $this->issuesRepository->find($id);
