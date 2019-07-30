@@ -1,0 +1,44 @@
+{block #title}{_issues.admin.magazines.default.title}{/block}
+
+{block #content}
+
+<div class="row">
+  <div class="col-md-12">
+    <h2>
+      {_issues.admin.magazines.default.title}
+      <small> / {_system.total} {$magazines->count('*')}</small>
+      <a n:href="new" class="btn btn-success btn-lg pull-right"><i class="fa fa-newspaper"></i> {_issues.admin.magazines.default.new}</a>
+    </h2>
+    <hr>
+  </div>
+  <div class="col-md-12">
+    <table class="table table-striped table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>{_issues.data.magazines.fields.name}</th>
+          <th>{_issues.data.magazines.fields.identifier}</th>
+          <th>{_issues.data.magazines.fields.issues}</th>
+          <th>{_system.fields.created}</th>
+          <th>{_system.actions}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr n:foreach="$magazines as $magazine">
+          <td>
+            <a n:href="show $magazine->id">{$magazine->name}</a>
+            <span n:if="$magazine->is_default" class="label label-success">{_issues.data.magazines.fields.is_default}</span>
+          </td>
+          <td><code>{$magazine->identifier}</code></td>
+          <td>{$magazine->related('issues')->count('*')}</td>
+          <td>{$magazine->created_at|userDate}</td>
+          <td>
+            <p class="text-nowrap">
+              <a n:href="show $magazine->id" class="btn btn-sm btn-info" title="{_system.show}"><i class="fa fa-eye"></i> </a>
+              <a n:href="edit $magazine->id" class="btn btn-sm btn-primary" title="{_system.edit}"><i class="fa fa-edit"></i> </a>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

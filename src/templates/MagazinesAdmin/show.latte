@@ -1,0 +1,38 @@
+{block #title}{$magazine->name}{/block}
+
+{block #content}
+
+<div class="row">
+  <div class="col-md-12">
+    <a n:href="default"><i class="fa fa-angle-left"></i> {_issues.admin.magazines.show.back}</a>
+    <div class="page-header">
+      <h1>
+      	{$magazine->name}
+
+      	<a href="{link edit $magazine->id}" class="btn btn-primary btn-lg pull-right"><i class="fa fa-edit"></i> {_issues.admin.magazines.show.edit}</a>
+      </h1>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    {_system.fields.created}: <b>{$magazine->created_at|userDate}</b><br>
+    {_issues.data.magazines.fields.identifier}: <code>{$magazine->identifier}</code><br>
+    <span n:if="$magazine->is_default" class="label label-success">{_issues.data.magazines.fields.is_default}</span>
+    <hr>
+  </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h3>{_issues.data.magazines.fields.issues}</h3>
+        <hr>
+
+        {foreach $magazine->related('issues')->order('issued_at DESC') as $issue}
+            <a n:href="IssuesAdmin:show $issue->id">{$issue->issued_at|date:'d.m.Y'}</a> <small>({$issue->identifier})</small>
+            <br>
+        {/foreach}
+    </div>
+
+</div>

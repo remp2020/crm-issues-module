@@ -1,0 +1,142 @@
+{block #content}
+
+<div class="row">
+  <div class="col-md-12">
+    <a n:href="default"><i class="fa fa-angle-left"></i> {_issues.admin.issues.show.back}</a>
+    <div class="page-header">
+      <h1>
+        <small>[{$issue->id}]</small>
+        <span n:block="title">
+          {if $issue->name}
+            {$issue->name}
+          {else}
+            {$issue->issued_at|date:'d.m.Y'}
+          {/if}
+        </span>
+      	<a n:href="edit $issue->id" class="btn btn-primary btn-lg pull-right"><i class="fa fa-edit"></i> {_issues.admin.issues.show.edit}</a>
+      </h1>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">{_issues.admin.issues.show.basic_informations}</div>
+      <ul class="list-group">
+        <li class="list-group-item"><b>{_issues.data.issues.fields.issued_at}:</b> {$issue->issued_at|date:'d.m.Y'}</li>
+        <li class="list-group-item"><b>{_system.fields.created}:</b> <span class="text-muted">{$issue->created_at|userDate}</span></li>
+        <li class="list-group-item"><b>{_system.fields.updated}:</b> <span class="text-muted">{$issue->updated_at|userDate}</span></li>
+        <li class="list-group-item"><b>{_issues.data.issues.fields.magazine}</b> <a n:href="MagazinesAdmin:show $issue->magazine_id">{$issue->magazine->name}</a></li>
+        <li class="list-group-item">
+          <b>{_issues.data.issues.fields.is_published}:</b>
+          {if $issue->is_published}
+            <span class="label label-success">{_issues.data.issues.values.is_published.yes}</span>
+          {else}
+            <span class="label label-default">{_issues.data.issues.values.is_published.no}</span>
+          {/if}
+        </li>
+        <li class="list-group-item"><b>{_issues.data.issues.fields.identifier}:</b> <code>{$issue->identifier}</code></li>
+        <li class="list-group-item">
+          <b>{_issues.data.issues.fields.state}:</b>
+          {if $issue->state == 'ok'}
+            <span class="label label-success">{$issue->state}</span>
+          {elseif $issue->state == 'error'}
+            <span class="label label-danger">{$issue->state}</span>
+          {else}
+            <span class="label label-warning">{$issue->state}</span>
+          {/if}
+        </li>
+        <li class="list-group-item">
+          <b>{_issues.admin.issues.show.issue_size}</b> {$totalDiskSpace|bytes} <a n:href="delete! $issue->id" class="btn btn-danger btn-xs" onclick="return confirm('{_system.confirm_delete}');"><i class="fa fa-trash"></i> {_issues.admin.issues.show.delete_issue}</a>
+          <small n:if="$issue->checksum">(<code>{$issue->checksum}</code>)</small>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">{_issues.data.issues.fields.original_files} ({$issue->related('issue_source_files')->count('*')} - {$issue->related('issue_source_files')->sum('size')|bytes})</div>
+      <div class="panel-body">
+        {foreach $issue->related('issue_source_files')->order('original_name ASC') as $sourceFile}
+          <b>{$sourceFile->original_name}</b>
+          <small class="text-muted">
+            {$sourceFile->size|bytes}
+            {$sourceFile->mime}
+          </small>
+          <a n:href="Download:sourceFile $sourceFile->identifier" target="_blank" class="text-right"><i class="fa fa-cloud-download"></i>&nbsp;{_system.download}</a>
+          <br>
+        {/foreach}
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div n:if="$issue->cover" class="row">
+  <div class="col-md-12">
+    <div class="page-header">
+      <h3>{_issues.data.issues.fields.cover}</h3>
+    </div>
+
+    <img src="{link Download:cover $issue->identifier}" width="80" alt="{_issues.data.issues.fields.cover}">
+  </div>
+</div>
+
+{var $pages = $issue->related('issue_pages')->order('page ASC')}
+
+<div class="row">
+
+  <div n:if="$issue->error_message && $issue->state == 'error'" class="col-md-12">
+    <p class="alert alert-danger">
+      ERROR! {$issue->error_message}
+    </p>
+  </div>
+
+  <div n:if="$pages->count('*') == 0" class="col-md-12">
+    <div class="well well-lg text-muted text-center">
+      <p>{_issues.admin.issues.show.no_pages}.</p>
+    </div>
+  </div>
+
+  <div n:if="$pages->count('*') > 0" class="col-md-12">
+    <div class="page-header">
+      <h3>{_issues.admin.issues.show.pages} <small>{_system.total} {$pages->count('*')}</small></h3>
+    </div>
+
+    {var $fetchedPages = []}
+    {foreach $pages as $page}
+      {if $page->quality == 'small'}
+        {var $fetchedPages[] = $page}
+      {/if}
+    {/foreach}
+    {var $rows = array_chunk($fetchedPages, 4)}
+
+    <div class="row" style="margin-bottom:30px" n:foreach="$rows as $rowPages">
+      <div n:foreach="$rowPages as $page" class="col-md-3">
+        <a n:href="Download:page $page->identifier" target="_blank">
+          <img width="180" class="thumbnail" src="{link Download:page $page->identifier}" alt="Page {$page->page}">
+        </a>
+
+        <small class="text-muted">
+          <b>{$page->page}.</b>
+          <br>
+
+          <a n:href="Download:page $page->identifier" target="_blank">small</a> ({$page->width}x{$page->height} - {$page->size|bytes}) <br>
+
+          {foreach $pages as $p}
+            {if $p->quality == 'large' && $p->page == $page->page}
+              <a n:href="Download:page $p->identifier" target="_blank">large</a> ({$p->width}x{$p->height} - {$p->size|bytes})
+            {/if}
+          {/foreach}
+
+        </small>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>

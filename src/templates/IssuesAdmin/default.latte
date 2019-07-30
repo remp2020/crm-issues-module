@@ -1,0 +1,63 @@
+{block #title}{_issues.admin.issues.default.title}{/block}
+
+{block #content}
+
+{var $filteredCount = $issues->count('*')}
+
+<div class="row">
+  <div class="col-md-12">
+    <h2>
+      {_issues.admin.issues.default.title}
+      <small> / {_system.total} {$totalIssues}
+        {if $totalIssues != $filteredCount}
+          , {_system.filtered} {$filteredCount}
+        {/if}
+      </small>
+      <a n:href="new" class="btn btn-success btn-lg pull-right"><i class="fa fa-newspaper"></i> {_issues.admin.issues.default.new}</a>
+    </h2>
+  </div>
+  <div class="col-md-12">
+    <hr>
+    {control adminFilterForm}
+    <hr>
+  </div>
+  <div class="col-md-12">
+    <table class="table table-striped table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>{_issues.data.issues.fields.issued_at}</th>
+          <th>{_issues.data.issues.fields.magazine}</th>
+          <th>{_issues.data.issues.fields.is_published}</th>
+          <th>{_system.fields.created}</th>
+          <th>{_system.actions}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr n:foreach="$issues as $issue">
+          <td>
+            <a n:href="show $issue->id">
+              <img n:if="$issue->cover" src="{link Download:cover $issue->identifier}" width="50" alt="cover">
+              {$issue->issued_at|date:'d.m.Y'}
+            </a>
+          </td>
+          <td><a n:href="MagazinesAdmin:show $issue->magazine_id">{$issue->magazine->name}</a></td>
+          <td>
+            {if $issue->is_published}
+              <span class="label label-success">Published</span>
+            {else}
+              <span class="label label-default">Hidden</span>
+            {/if}
+          </td>
+          <td>{$issue->created_at|userDate}</td>
+          <td>
+            <p class="text-nowrap">
+              <a n:href="show $issue->id" class="btn btn-sm btn-info" title="{_system.show}"><i class="fa fa-eye"></i> </a>
+              <a n:href="edit $issue->id" class="btn btn-sm btn-primary" title="{_system.edit}"><i class="fa fa-edit"></i> </a>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    {control vp}
+  </div>
+</div>

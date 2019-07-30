@@ -1,0 +1,22 @@
+{block #title}{_issues.admin.issues.edit.title name => $issue->name}{/block}
+
+{block #content}
+
+<div class="row">
+  <div class="col-md-12">
+    <a n:href="show $issue->id"><i class="fa fa-angle-left"></i> {_issues.admin.issues.edit.back}</a>
+    <div class="page-header">
+      <h1>
+        {_issues.admin.issues.edit.header}
+        <small>[{$issue->id}]</small>
+      	{$issue->name}
+      </h1>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-8">
+    {control issueForm}
+  </div>
+</div>

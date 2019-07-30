@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="page-header">{_issues.components.subscription_types_with_magazines.title}</h2>
+        {var $pairs = $type->related('subscription_type_magazines')}
+        {if $pairs->count('*')}
+            <ul class="list-group">
+                <li n:foreach="$pairs as $pair" class="list-group-item">
+                    <a href="{plink :Issues:MagazinesAdmin:show $pair->magazine_id}">{$pair->magazine->name}</a>
+                    <code>{$pair->magazine->identifier}</code>
+                    <small class="text-muted">{$pair->magazine->related('issues')->count('*')} {_issues.components.subscription_types_with_magazines.issues|lower}</small>
+                    <a n:href="removeMagazine! $type->id, $pair->magazine_id" class="btn btn-default btn-xs pull-right">
+                        <i class="fa fa-trash"></i>&nbsp;&nbsp;{_issues.components.subscription_types_with_magazines.remove_magazine}
+                    </a>
+                </li>
+            </ul>
+            <a class="btn btn-default btn-xs" href="#magazinesFormDiv" onclick="$('#magazinesFormDiv').toggle(); return false;">
+                <i class="fa fa-plus-circle"></i>&nbsp;&nbsp;{_issues.components.subscription_types_with_magazines.add_magazine}
+            </a>
+        {else}
+            <p class="text-muted well text-center">
+                {_issues.components.subscription_types_with_magazines.messages.no_magazines}<br><br>
+                <a class="btn btn-default btn-xs" href="#magazinesFormDiv" onclick="$('#magazinesFormDiv').toggle(); return false;">
+                    <i class="fa fa-plus-circle"></i>&nbsp;&nbsp;{_issues.components.subscription_types_with_magazines.add_magazine}
+                </a>
+            </p>
+        {/if}
+    </div>
+
+    <div id="magazinesFormDiv" class="col-md-12" style="display:none">
+        {control magazinesForm}
+    </div>
+</div>
