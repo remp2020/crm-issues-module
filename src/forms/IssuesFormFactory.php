@@ -109,7 +109,7 @@ class IssuesFormFactory
         } else {
             $magazine = $this->magazinesRepository->find($values->magazine_id);
 
-            $issue = $this->issuesRepository->add($magazine, $values['issued_at'], $values['name'], $values['is_published']);
+            $issue = $this->issuesRepository->add($magazine, $values['issued_at'], $values['name'], $values['is_published'], $values['state']);
 
             foreach ($values->original_files as $originalFile) {
                 if ($originalFile->isOk()) {
