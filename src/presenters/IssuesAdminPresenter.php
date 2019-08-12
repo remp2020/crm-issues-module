@@ -7,7 +7,6 @@ use Crm\AdminModule\Presenters\AdminPresenter;
 use Crm\IssuesModule\Forms\IssuesFormFactory;
 use Crm\IssuesModule\Repository\IssuesRepository;
 use Crm\IssuesModule\Repository\MagazinesRepository;
-use Nette\Application\BadRequestException;
 use Nette\Application\UI\Form;
 use Nette\Database\Table\IRow;
 use Tomaj\Form\Renderer\BootstrapInlineRenderer;
