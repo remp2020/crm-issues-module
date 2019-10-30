@@ -117,7 +117,8 @@ class ImportCommand extends Command
         $output->writeln('Found files:');
         foreach ($files as $filePath => $file) {
             $output->writeln(" * <info>{$filePath}</info> ({$file->getSize()}b)");
-            $hashString .= "{$filePath}|{$file->getSize()}|";
+            $md5Hash = hash_file('md5', $file->getPath());
+            $hashString .= "{$filePath}|{$md5Hash}|";
         }
 
         $checksum = md5($hashString);
