@@ -13,7 +13,7 @@ class SubscriptionTypeMagazinesRepository extends Repository
         $record = $this->getTable()->where([
             'subscription_type_id' => $subscriptionTypeID,
             'magazine_id' => $magazineID,
-        ]);
+        ])->fetch();
 
         if (!$record) {
             $this->getTable()->insert([
