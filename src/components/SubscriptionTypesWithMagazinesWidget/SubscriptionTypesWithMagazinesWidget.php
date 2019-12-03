@@ -12,8 +12,8 @@ use Nette\Localization\ITranslator;
 use Tomaj\Form\Renderer\BootstrapRenderer;
 
 /**
- * Widget used in subscription type detail.
- * Used for listing and editing  list of magazines.
+ * This widget fetches all magazines for specific subscription type and render list
+ * and allows editing and deleting magazines.
  *
  * @package Crm\IssuesModule\Components
  */
