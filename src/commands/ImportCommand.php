@@ -101,7 +101,7 @@ class ImportCommand extends Command
 
         if (count($files) == 0) {
             $output->writeln("Cannot find files in <comment>{$baseFolder}</comment> (" . get_class($this->filePatternProcessor) . ")");
-            return;
+            return 1;
         }
 
         // pozrieme ci tam este nie su nejake specialy
@@ -157,6 +157,8 @@ class ImportCommand extends Command
         $output->writeln('');
         $output->writeln('Done');
         $output->writeln('');
+
+        return 0;
     }
 
     private function processSourceFile($filePath, $file, $issue)
