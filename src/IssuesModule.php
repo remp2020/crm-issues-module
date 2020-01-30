@@ -15,7 +15,7 @@ class IssuesModule extends CrmModule
 {
     public function registerAdminMenuItems(MenuContainerInterface $menuContainer)
     {
-        $mainMenu = new MenuItem($this->translator->translate('issues.menu.issues'), '#', 'fa fa-copy', 333, true);
+        $mainMenu = new MenuItem('', '#', 'fa fa-copy', 790, true);
 
         $menuItem1 = new MenuItem(
             $this->translator->translate('issues.menu.issues'),
