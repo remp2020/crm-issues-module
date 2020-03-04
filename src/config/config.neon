@@ -3,6 +3,12 @@ services:
 		setup:
 			- addModule(Crm\IssuesModule\IssuesModule())
 
+	issuesRepository: Crm\IssuesModule\Repository\IssuesRepository
+	issuePagesRepository: Crm\IssuesModule\Repository\IssuePagesRepository
+	issueSourceFilesRepository: Crm\IssuesModule\Repository\IssueSourceFilesRepository
+	magazinesRepository: Crm\IssuesModule\Repository\MagazinesRepository
+	subscriptionTypeMagazinesRepository: Crm\IssuesModule\Repository\SubscriptionTypeMagazinesRepository
+
 	- Crm\IssuesModule\Api\IssuesDetailApiHandler
 	- Crm\IssuesModule\Api\IssuesListingApiHandler
 	- Crm\IssuesModule\Api\MagazineOverviewApiHandler
@@ -15,11 +21,6 @@ services:
 	- Crm\IssuesModule\Forms\IssuesFormFactory
 	- Crm\IssuesModule\Forms\MagazineFormFactory
 	- Crm\IssuesModule\Pdf\Converter
-	- Crm\IssuesModule\Repository\IssuesRepository
-	- Crm\IssuesModule\Repository\IssuePagesRepository
-	- Crm\IssuesModule\Repository\IssueSourceFilesRepository
-	- Crm\IssuesModule\Repository\MagazinesRepository
-	- Crm\IssuesModule\Repository\SubscriptionTypeMagazinesRepository
 
 	filePatternProcessor: Crm\IssuesModule\Model\Issue\FilePatternProcessor
 	issuesFileSystem: League\Flysystem\Filesystem(League\Flysystem\Adapter\Local('%appDir%/../content/issues'))
