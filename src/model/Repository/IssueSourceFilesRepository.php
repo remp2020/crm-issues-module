@@ -9,7 +9,7 @@ class IssueSourceFilesRepository extends IssueBaseRepository
 {
     protected $tableName = 'issue_source_files';
 
-    public function add(IRow $issue, $file, $originalName, $size, $mime)
+    final public function add(IRow $issue, $file, $originalName, $size, $mime)
     {
         $identifier = md5(time() . rand(100000, 99999) . $originalName . $file . $size);
         $id = $this->insert([
@@ -25,18 +25,18 @@ class IssueSourceFilesRepository extends IssueBaseRepository
         return $this->find($id);
     }
 
-    public function delete(IRow &$row)
+    final public function delete(IRow &$row)
     {
         $this->getMountManager()->delete('issues://' . $row->file);
         return parent::delete($row);
     }
 
-    public function findByIdentifier($identifier)
+    final public function findByIdentifier($identifier)
     {
         return $this->getTable()->where(['identifier' => $identifier])->limit(1)->fetch();
     }
 
-    public function getIssueFiles(IRow $issue)
+    final public function getIssueFiles(IRow $issue)
     {
         return $this->getTable()->where('issue_id', $issue->id)->order('original_name ASC');
     }

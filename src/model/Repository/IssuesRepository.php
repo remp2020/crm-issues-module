@@ -34,7 +34,7 @@ class IssuesRepository extends IssueBaseRepository
         $this->issuePagesRepository = $issuePagesRepository;
     }
 
-    public function add(
+    final public function add(
         IRow $magazine,
         DateTime $issuedAt,
         $name,
@@ -57,18 +57,18 @@ class IssuesRepository extends IssueBaseRepository
         return $this->find($id);
     }
 
-    public function update(IRow &$row, $data)
+    final public function update(IRow &$row, $data)
     {
         $data['updated_at'] = new DateTime();
         return parent::update($row, $data);
     }
 
-    public function setCover(IRow $issue, $cover)
+    final public function setCover(IRow $issue, $cover)
     {
         return $this->update($issue, ['cover' => $cover]);
     }
 
-    public function getPublicIssues(DateTime $fromTime = null, DateTime $endTime = null)
+    final public function getPublicIssues(DateTime $fromTime = null, DateTime $endTime = null)
     {
         $where = ['is_published' => true];
         if ($fromTime) {
@@ -81,7 +81,7 @@ class IssuesRepository extends IssueBaseRepository
         return $this->getTable()->where($where)->order('issued_at DESC');
     }
 
-    public function deleteIssue(IRow &$row)
+    final public function deleteIssue(IRow &$row)
     {
         foreach ($row->related('issue_source_files') as $sourceFile) {
             $this->issueSourceFilesRepository->delete($sourceFile);
@@ -95,7 +95,7 @@ class IssuesRepository extends IssueBaseRepository
         return parent::delete($row);
     }
 
-    public function getIssues(ActiveRow $magazine = null)
+    final public function getIssues(ActiveRow $magazine = null)
     {
         $where = [];
         if ($magazine) {
@@ -104,12 +104,12 @@ class IssuesRepository extends IssueBaseRepository
         return $this->getTable()->where($where)->order('issued_at DESC');
     }
 
-    public function getIssuesForConverting()
+    final public function getIssuesForConverting()
     {
         return $this->getTable()->where(['state' => [self::STATE_NEW]])->select('issues.*')->order('created_at ASC');
     }
 
-    public function changeState(IRow $issue, $state)
+    final public function changeState(IRow $issue, $state)
     {
         return parent::update($issue, [
             'updated_at' => new DateTime(),
@@ -117,7 +117,7 @@ class IssuesRepository extends IssueBaseRepository
         ]);
     }
 
-    public function setError(IRow $issue, $error)
+    final public function setError(IRow $issue, $error)
     {
         return parent::update($issue, [
             'updated_at' => new DateTime(),
@@ -126,17 +126,17 @@ class IssuesRepository extends IssueBaseRepository
         ]);
     }
 
-    public function totalCount()
+    final public function totalCount()
     {
         return $this->getTable()->count('*');
     }
 
-    public function totalPublished(IRow $magazine)
+    final public function totalPublished(IRow $magazine)
     {
         return $this->getTable()->where(['is_published' => true, 'state' => self::STATE_OK, 'magazine_id' => $magazine->id])->count('*');
     }
 
-    public function yearIssuePublished(IRow $magazine, $year = false)
+    final public function yearIssuePublished(IRow $magazine, $year = false)
     {
         if (!$year) {
             $year = date('Y');
@@ -146,27 +146,27 @@ class IssuesRepository extends IssueBaseRepository
         return $this->getTable()->where(['is_published' => true, 'state' => self::STATE_OK, 'magazine_id' => $magazine->id, 'issued_at >= ?' => $start, 'issued_at < ?' => $end])->order('issued_at DESC');
     }
 
-    public function availableYears(IRow $magazine)
+    final public function availableYears(IRow $magazine)
     {
         return $this->getTable()->select('YEAR(issued_at) AS year, COUNT(id) AS count')->where(['is_published' => true, 'state' => self::STATE_OK, 'magazine_id' => $magazine->id])->group('YEAR(issued_at)')->order('year DESC');
     }
 
-    public function findByIdentifier($identifier)
+    final public function findByIdentifier($identifier)
     {
         return $this->getTable()->where(['identifier' => $identifier])->limit(1)->fetch();
     }
 
-    public function nextIssue(IRow $issue)
+    final public function nextIssue(IRow $issue)
     {
         return $this->getTable()->where(['magazine_id' => $issue->magazine_id, 'state' => self::STATE_OK, 'issued_at > ' => $issue->issued_at])->order('issued_at ASC')->limit(1)->fetch();
     }
 
-    public function prevIssue(IRow $issue)
+    final public function prevIssue(IRow $issue)
     {
         return $this->getTable()->where(['magazine_id' => $issue->magazine_id, 'state' => self::STATE_OK, 'issued_at < ' => $issue->issued_at])->order('issued_at DESC')->limit(1)->fetch();
     }
 
-    public function lastIssues(IRow $magazine, $year, $limit = 5)
+    final public function lastIssues(IRow $magazine, $year, $limit = 5)
     {
         return $this->getTable()->where([
             'magazine_id' => $magazine->id,
@@ -176,17 +176,17 @@ class IssuesRepository extends IssueBaseRepository
         ])->order('issued_at DESC')->limit($limit);
     }
 
-    public function totalDiskSpace(IRow $issue)
+    final public function totalDiskSpace(IRow $issue)
     {
         return $issue->related('issue_source_files')->sum('size') + $issue->related('issue_pages')->sum('size');
     }
 
-    public function exists(IRow $magazine, DateTime $date)
+    final public function exists(IRow $magazine, DateTime $date)
     {
         return $this->getTable()->where(['magazine_id' => $magazine->id, 'issued_at' => $date])->count('*');
     }
 
-    public function findIssue(IRow $magazine, DateTime $date)
+    final public function findIssue(IRow $magazine, DateTime $date)
     {
         return $this->getTable()->where(['magazine_id' => $magazine->id, 'issued_at' => $date])->fetch();
     }

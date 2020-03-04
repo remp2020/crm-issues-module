@@ -8,7 +8,7 @@ class SubscriptionTypeMagazinesRepository extends Repository
 {
     protected $tableName = 'subscription_type_magazines';
 
-    public function addSubscriptionTypeMagazine($subscriptionTypeID, $magazineID)
+    final public function addSubscriptionTypeMagazine($subscriptionTypeID, $magazineID)
     {
         $record = $this->getTable()->where([
             'subscription_type_id' => $subscriptionTypeID,
@@ -25,7 +25,7 @@ class SubscriptionTypeMagazinesRepository extends Repository
         return $record;
     }
 
-    public function removeSubscriptionTypeMagazine($subscriptionTypeID, $magazineID)
+    final public function removeSubscriptionTypeMagazine($subscriptionTypeID, $magazineID)
     {
         return $this->getTable()->where(['subscription_type_id' => $subscriptionTypeID, 'magazine_id' => $magazineID])->delete();
     }

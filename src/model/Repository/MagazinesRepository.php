@@ -14,17 +14,17 @@ class MagazinesRepository extends Repository
     /**
      * @return Selection
      */
-    public function all()
+    final public function all()
     {
         return $this->getTable()->order('name ASC');
     }
 
-    public function exists($identifier)
+    final public function exists($identifier)
     {
         return $this->getTable()->where(['identifier' => $identifier])->count('*') > 0;
     }
 
-    public function add($identifier, $name, $isDefault = false)
+    final public function add($identifier, $name, $isDefault = false)
     {
         $id = $this->insert([
             'identifier' => $identifier,
@@ -36,17 +36,17 @@ class MagazinesRepository extends Repository
         return $this->find($id);
     }
 
-    public function defaultMagazine()
+    final public function defaultMagazine()
     {
         return $this->getTable()->where(['is_default' => true])->limit(1)->fetch();
     }
 
-    public function findByIdentifier($identifier)
+    final public function findByIdentifier($identifier)
     {
         return $this->getTable()->where(['identifier' => $identifier])->limit(1)->fetch();
     }
 
-    public function update(IRow &$row, $data)
+    final public function update(IRow &$row, $data)
     {
         $data['updated_at'] = new DateTime();
         return parent::update($row, $data);
