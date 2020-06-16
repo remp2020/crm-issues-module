@@ -85,7 +85,8 @@ class SyncFtpIssuesCommand extends Command
             'host' => $input->getOption('host'),
             'username' => $input->getOption('username'),
             'password' => $input->getOption('password'),
-            'root' => $input->getOption('path')
+            'root' => $input->getOption('path'),
+            'passive' => true,
         ]);
         $localAdapter = new Local($input->getOption('local-folder'));
 
@@ -105,12 +106,6 @@ class SyncFtpIssuesCommand extends Command
             }
 
             $update = true;
-
-//            if (!$manager->has('local://' . $entry['path'])) {
-//                $update = true;
-//            } elseif ($manager->getTimestamp('ftp://' . $entry['path']) > $manager->getTimestamp('local://' . $entry['path'])) {
-//                $update = true;
-//            }
 
             if ($update) {
                 $output->writeln('Downloading <info>' . $entry['path'] . '</info>');
