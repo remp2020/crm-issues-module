@@ -14,9 +14,14 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use ErrorException;
+use Tracy\Debugger;
+use Tracy\ILogger;
 
 class SyncFtpIssuesCommand extends Command
 {
+    private const MAX_RETRY_COUNT = 3;
+
     /** @var IssuesRepository  */
     private $issuesRepository;
 
@@ -86,7 +91,6 @@ class SyncFtpIssuesCommand extends Command
             'username' => $input->getOption('username'),
             'password' => $input->getOption('password'),
             'root' => $input->getOption('path'),
-            'passive' => true,
         ]);
         $localAdapter = new Local($input->getOption('local-folder'));
 
@@ -105,15 +109,27 @@ class SyncFtpIssuesCommand extends Command
                 continue;
             }
 
-            $update = true;
+            if ($manager->has("local://{$entry['path']}") === true) {
+                $output->writeln('Already downloaded <info>' . $entry['path'] . '</info>');
+                continue;
+            }
 
-            if ($update) {
+            $retryCount = 0;
+
+            while (true) {
                 $output->writeln('Downloading <info>' . $entry['path'] . '</info>');
                 try {
-                    $manager->put('local://' . $entry['path'], $manager->read('ftp://' . $entry['path']));
-                } catch (FileNotFoundException $e) {
-                    $output->writeln("Cannot download <error>{$entry['path']}</error>");
-                    continue;
+                    $manager->put("local://{$entry['path']}", $manager->read("ftp://{$entry['path']}"));
+                    break;
+                } catch (FileNotFoundException | ErrorException $exception) {
+                    if ($retryCount >= self::MAX_RETRY_COUNT) {
+                        Debugger::log("Cannot sync file '{$entry['type']}' due exception: {$exception->getMessage()}", ILogger::EXCEPTION);
+                        break;
+                    }
+
+                    $retryCount++;
+                    $output->writeln("Retry to download <error>{$entry['path']}</error>, try: {$retryCount}");
+                    sleep(5);
                 }
             }
         }
