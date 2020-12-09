@@ -1,5 +1,23 @@
 # CRM Issues Module
 
+## Configuration
+
+### Directory
+
+Default directory for issues, is APP_ROOT/content/issues. Directory is created automatically with first upload.
+
+You can use other buckets for uploads, but you need to define them in your config file `app/config/config.neon`:
+
+```neon
+services:	
+	# ...
+	# fileManager extension - example uploads
+	exampleIssuesFileSystem: League\Flysystem\Filesystem(League\Flysystem\Adapter\Local('%appDir%/../content/examples_issues'))
+	flysystemMountManager:
+		setup:
+			- mountFilesystem('exampleIssues', @exampleIssuesFileSystem)
+```
+
 ## Components
 
 **SubscriptionTypesWithMagazinesWidget**
