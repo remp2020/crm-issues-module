@@ -2,7 +2,7 @@
 
 namespace Crm\IssuesModule\Repository;
 
-use League\Flysystem\MountManager;
+use Crm\ApplicationModule\Models\ApplicationMountManager;
 use Nette\Database\Context;
 use Nette\Database\Table\ActiveRow;
 use Nette\Database\Table\IRow;
@@ -25,7 +25,7 @@ class IssuesRepository extends IssueBaseRepository
 
     public function __construct(
         Context $database,
-        MountManager $mountManager,
+        ApplicationMountManager $mountManager,
         IssueSourceFilesRepository $issueSourceFilesRepository,
         IssuePagesRepository $issuePagesRepository
     ) {

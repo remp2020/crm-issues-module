@@ -2,18 +2,17 @@
 
 namespace Crm\IssuesModule\Repository;
 
+use Crm\ApplicationModule\Models\ApplicationMountManager;
 use Crm\ApplicationModule\Repository;
-
-use League\Flysystem\MountManager;
 use Nette\Caching\IStorage;
 use Nette\Database\Context;
 
 abstract class IssueBaseRepository extends Repository
 {
-    /** @var MountManager  */
+    /** @var ApplicationMountManager  */
     private $mountManager;
 
-    public function __construct(Context $database, MountManager $mountManager, IStorage $cacheStorage = null)
+    public function __construct(Context $database, ApplicationMountManager $mountManager, IStorage $cacheStorage = null)
     {
         parent::__construct($database, $cacheStorage);
         $this->database = $database;

@@ -23,9 +23,10 @@ services:
 	- Crm\IssuesModule\Pdf\Converter
 
 	filePatternProcessor: Crm\IssuesModule\Model\Issue\FilePatternProcessor
+
 	issuesFileSystem: League\Flysystem\Filesystem(League\Flysystem\Adapter\Local('%appDir%/../content/issues'))
 	issuesCoverNewsMuseumFileSystem: League\Flysystem\Filesystem(League\Flysystem\Adapter\Local('%appDir%/../content/newsmuseum'))
-	flysystemMountManager:
+	applicationMountManager:
 		setup:
 			- mountFilesystem('issues', @issuesFileSystem)
 			- mountFilesystem('newsmuseum', @issuesCoverNewsMuseumFileSystem)

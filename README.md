@@ -13,7 +13,7 @@ services:
 	# ...
 	# fileManager extension - example uploads
 	exampleIssuesFileSystem: League\Flysystem\Filesystem(League\Flysystem\Adapter\Local('%appDir%/../content/examples_issues'))
-	flysystemMountManager:
+	applicationMountManager:
 		setup:
 			- mountFilesystem('exampleIssues', @exampleIssuesFileSystem)
 ```

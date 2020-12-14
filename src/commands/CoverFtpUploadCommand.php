@@ -2,11 +2,11 @@
 
 namespace Crm\IssuesModule\Commands;
 
+use Crm\ApplicationModule\Models\ApplicationMountManager;
 use Crm\IssuesModule\Repository\IssueSourceFilesRepository;
 use Crm\IssuesModule\Repository\IssuesRepository;
 use Crm\IssuesModule\Repository\MagazinesRepository;
 use League\Flysystem\FileNotFoundException;
-use League\Flysystem\MountManager;
 use Nette\Utils\DateTime;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -19,7 +19,7 @@ class CoverFtpUploadCommand extends Command
     /** @var IssuesRepository  */
     private $issuesRepository;
 
-    /** @var MountManager  */
+    /** @var ApplicationMountManager  */
     private $mountManager;
 
     /** @var MagazinesRepository  */
@@ -29,7 +29,7 @@ class CoverFtpUploadCommand extends Command
     private $issueSourceFilesRepository;
 
     public function __construct(
-        MountManager $mountManager,
+        ApplicationMountManager $mountManager,
         IssuesRepository $issuesRepository,
         MagazinesRepository $magazinesRepository,
         IssueSourceFilesRepository $issueSourceFilesRepository
