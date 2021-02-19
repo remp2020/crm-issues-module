@@ -5,12 +5,7 @@
   "homepage": "https://remp2020.com",
   "license": "MIT",
   "require": {
-    "php": "^7.2",
-    "remp/crm-admin-module": "~0.4 >=0.4.2",
-    "remp/crm-api-module": "~0.4 >=0.4.2",
-    "remp/crm-application-module": "~0.4 >=0.4.2",
-    "remp/crm-subscriptions-module": "~0.4 >=0.4.2",
-    "remp/crm-users-module": "~0.4 >=0.4.2"
+    "php": "^7.3"
   },
   "minimum-stability": "dev",
   "autoload": {
