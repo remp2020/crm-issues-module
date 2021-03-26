@@ -101,7 +101,7 @@ class ImportCommand extends Command
 
         if (count($files) == 0) {
             $output->writeln("Cannot find files in <comment>{$baseFolder}</comment> (" . get_class($this->filePatternProcessor) . ")");
-            return 1;
+            return Command::FAILURE;
         }
 
         // pozrieme ci tam este nie su nejake specialy
@@ -127,7 +127,7 @@ class ImportCommand extends Command
         if ($actualIssue) {
             if ($actualIssue->checksum == null || $actualIssue->checksum == $checksum) {
                 $output->writeln("Issue with date <comment>{$date->format('d.m.Y')}</comment> exists and it is same");
-                return;
+                return Command::SUCCESS;
             } else {
                 $output->writeln("Issue with date <comment>{$date->format('d.m.Y')}</comment> exists but it is different");
                 $output->writeln("<error>Removing issue {$date->format('d.m.Y')}</error>");
@@ -158,7 +158,7 @@ class ImportCommand extends Command
         $output->writeln('Done');
         $output->writeln('');
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     private function processSourceFile($filePath, $file, $issue)
