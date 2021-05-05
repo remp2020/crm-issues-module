@@ -25,6 +25,9 @@ class IssuesAdminPresenter extends AdminPresenter
     /** @var  @persistent */
     public $magazine;
 
+    /**
+     * @admin-access-level read
+     */
     public function renderDefault()
     {
         $magazine = $this->magazineRepository->find($this->magazine);
@@ -41,6 +44,9 @@ class IssuesAdminPresenter extends AdminPresenter
         $this->template->totalIssues = $this->issuesRepository->totalCount();
     }
 
+    /**
+     * @admin-access-level read
+     */
     public function renderShow($id)
     {
         $issue = $this->issuesRepository->find($id);
@@ -53,15 +59,24 @@ class IssuesAdminPresenter extends AdminPresenter
         $this->template->totalDiskSpace = $this->issuesRepository->totalDiskSpace($issue);
     }
 
+    /**
+     * @admin-access-level write
+     */
     public function renderNew()
     {
     }
 
+    /**
+     * @admin-access-level write
+     */
     public function renderEdit($id)
     {
         $this->template->issue = $this->issuesRepository->find($id);
     }
 
+    /**
+     * @admin-access-level write
+     */
     public function handleDelete($id)
     {
         $issue = $this->issuesRepository->find($id);

@@ -15,20 +15,32 @@ class MagazinesAdminPresenter extends AdminPresenter
     /** @var  MagazinesRepository @inject */
     public $magazinesRepository;
 
+    /**
+     * @admin-access-level read
+     */
     public function renderDefault()
     {
         $this->template->magazines = $this->magazinesRepository->all();
     }
 
+    /**
+     * @admin-access-level write
+     */
     public function renderNew()
     {
     }
 
+    /**
+     * @admin-access-level write
+     */
     public function renderEdit($id)
     {
         $this->template->magazine = $this->magazinesRepository->find($id);
     }
 
+    /**
+     * @admin-access-level read
+     */
     public function renderShow($id)
     {
         $this->template->magazine = $this->magazinesRepository->find($id);
