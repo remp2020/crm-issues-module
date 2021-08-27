@@ -67,10 +67,10 @@ class IssuesFormFactory
 
         $form->addText('issued_at', 'issues.data.issues.fields.issued_at')
             ->setRequired('issues.data.issues.required.issued_at')
-            ->setAttribute('placeholder', 'issues.data.issues.placeholder.issued_at');
+            ->setHtmlAttribute('placeholder', 'issues.data.issues.placeholder.issued_at');
 
         $form->addText('name', 'issues.data.issues.fields.name')
-            ->setAttribute('placeholder', 'issues.data.issues.placeholder.name');
+            ->setHtmlAttribute('placeholder', 'issues.data.issues.placeholder.name');
 
         $form->addCheckbox('is_published', 'issues.data.issues.fields.is_published');
 

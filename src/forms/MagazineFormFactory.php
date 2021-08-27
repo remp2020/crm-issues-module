@@ -45,10 +45,10 @@ class MagazineFormFactory
         $form->addHidden('id');
 
         $form->addText('name', 'issues.data.magazines.fields.name')
-            ->setAttribute('placeholder', 'issues.data.magazines.placeholder.name');
+            ->setHtmlAttribute('placeholder', 'issues.data.magazines.placeholder.name');
 
         $form->addText('identifier', 'issues.data.magazines.fields.identifier')
-            ->setAttribute('placeholder', 'issues.data.magazines.placeholder.identifier');
+            ->setHtmlAttribute('placeholder', 'issues.data.magazines.placeholder.identifier');
 
         $form->addCheckbox('is_default', 'issues.data.magazines.fields.is_default');
 
