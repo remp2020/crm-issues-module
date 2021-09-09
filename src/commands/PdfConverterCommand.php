@@ -145,6 +145,6 @@ class PdfConverterCommand extends Command
         $output->writeln('Done');
         $output->writeln('');
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

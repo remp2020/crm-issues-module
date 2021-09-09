@@ -95,7 +95,7 @@ class CoverFtpUploadCommand extends Command
         }
 
         $fileName = str_replace('*date1*', $issue->issued_at->format('Ymd'), $format);
-        
+
         try {
             $this->mountManager->read('newsmuseum://' . $fileName);
             $output->writeln("Issue file {$fileName} already exists");
@@ -122,6 +122,6 @@ class CoverFtpUploadCommand extends Command
         $output->writeln('Done');
         $output->writeln('');
 
-        return 0;
+        return Command::SUCCESS;
     }
 }
