@@ -3,7 +3,7 @@
 namespace Crm\IssuesModule\Repository;
 
 use Crm\ApplicationModule\Models\ApplicationMountManager;
-use Nette\Database\Context;
+use Nette\Database\Explorer;
 use Nette\Database\Table\ActiveRow;
 use Nette\Database\Table\IRow;
 use Nette\Utils\DateTime;
@@ -24,7 +24,7 @@ class IssuesRepository extends IssueBaseRepository
     private $issuePagesRepository;
 
     public function __construct(
-        Context $database,
+        Explorer $database,
         ApplicationMountManager $mountManager,
         IssueSourceFilesRepository $issueSourceFilesRepository,
         IssuePagesRepository $issuePagesRepository
