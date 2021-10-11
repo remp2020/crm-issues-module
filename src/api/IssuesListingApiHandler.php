@@ -39,7 +39,7 @@ class IssuesListingApiHandler extends ApiHandler
 
     /**
      * @param ApiAuthorizationInterface $authorization
-     * @return \Nette\Application\IResponse
+     * @return \Nette\Application\Response
      */
     public function handle(ApiAuthorizationInterface $authorization)
     {
