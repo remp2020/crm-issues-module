@@ -2,8 +2,8 @@
 
 namespace Crm\IssuesModule\Presenters;
 
-use Crm\ApplicationModule\Components\VisualPaginator;
 use Crm\AdminModule\Presenters\AdminPresenter;
+use Crm\ApplicationModule\Components\VisualPaginator;
 use Crm\IssuesModule\Forms\IssuesFormFactory;
 use Crm\IssuesModule\Repository\IssuesRepository;
 use Crm\IssuesModule\Repository\MagazinesRepository;

@@ -2,9 +2,9 @@
 
 namespace Crm\IssuesModule\Api;
 
+use Crm\ApiModule\Api\ApiHandler;
 use Crm\ApiModule\Api\JsonResponse;
 use Crm\ApiModule\Authorization\ApiAuthorizationInterface;
-use Crm\ApiModule\Api\ApiHandler;
 use Crm\IssuesModule\Repository\MagazinesRepository;
 use Nette\Application\LinkGenerator;
 use Nette\Http\Response;

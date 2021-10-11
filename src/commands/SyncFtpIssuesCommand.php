@@ -5,6 +5,7 @@ namespace Crm\IssuesModule\Commands;
 use Crm\IssuesModule\Repository\IssueSourceFilesRepository;
 use Crm\IssuesModule\Repository\IssuesRepository;
 use Crm\IssuesModule\Repository\MagazinesRepository;
+use ErrorException;
 use League\Flysystem\Adapter\Ftp;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\FileNotFoundException;
@@ -14,7 +15,6 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use ErrorException;
 use Tracy\Debugger;
 use Tracy\ILogger;
 
