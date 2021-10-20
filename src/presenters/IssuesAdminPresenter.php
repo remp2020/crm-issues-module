@@ -8,7 +8,7 @@ use Crm\IssuesModule\Forms\IssuesFormFactory;
 use Crm\IssuesModule\Repository\IssuesRepository;
 use Crm\IssuesModule\Repository\MagazinesRepository;
 use Nette\Application\UI\Form;
-use Nette\Database\Table\IRow;
+use Nette\Database\Table\ActiveRow;
 use Tomaj\Form\Renderer\BootstrapInlineRenderer;
 
 class IssuesAdminPresenter extends AdminPresenter
@@ -92,11 +92,11 @@ class IssuesAdminPresenter extends AdminPresenter
             $issue = $this->issuesRepository->find($this->params['id']);
         }
         $form = $this->issuesFormFactory->create($issue);
-        $this->issuesFormFactory->onCreate = function (IRow $issue) {
+        $this->issuesFormFactory->onCreate = function (ActiveRow $issue) {
             $this->flashMessage($this->translator->translate('issues.admin.issues.messages.issue_created'));
             $this->redirect('show', $issue->id);
         };
-        $this->issuesFormFactory->onUpdate = function (IRow $issue) {
+        $this->issuesFormFactory->onUpdate = function (ActiveRow $issue) {
             $this->flashMessage($this->translator->translate('issues.admin.issues.messages.issue_updated'));
             $this->redirect('show', $issue->id);
         };

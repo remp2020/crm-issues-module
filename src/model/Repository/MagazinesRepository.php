@@ -3,7 +3,7 @@
 namespace Crm\IssuesModule\Repository;
 
 use Crm\ApplicationModule\Repository;
-use Nette\Database\Table\IRow;
+use Nette\Database\Table\ActiveRow;
 use Nette\Database\Table\Selection;
 use Nette\Utils\DateTime;
 
@@ -46,7 +46,7 @@ class MagazinesRepository extends Repository
         return $this->getTable()->where(['identifier' => $identifier])->limit(1)->fetch();
     }
 
-    final public function update(IRow &$row, $data)
+    final public function update(ActiveRow &$row, $data)
     {
         $data['updated_at'] = new DateTime();
         return parent::update($row, $data);

@@ -10,7 +10,7 @@ use Crm\ApiModule\Params\ParamsProcessor;
 use Crm\IssuesModule\Repository\IssuesRepository;
 use Crm\IssuesModule\Repository\MagazinesRepository;
 use Nette\Application\LinkGenerator;
-use Nette\Database\Table\IRow;
+use Nette\Database\Table\ActiveRow;
 use Nette\Http\Response;
 
 class MagazineOverviewApiHandler extends ApiHandler
@@ -66,7 +66,7 @@ class MagazineOverviewApiHandler extends ApiHandler
                 'year' => $year->year,
                 'issues' => [
                     'count' => $year->count,
-                    'last_issues' => array_values(array_map(function (IRow $issue) {
+                    'last_issues' => array_values(array_map(function (ActiveRow $issue) {
                         return [
                             'id' => $issue->identifier,
                             'issued_at' => $issue->issued_at->format('d.m.Y'),

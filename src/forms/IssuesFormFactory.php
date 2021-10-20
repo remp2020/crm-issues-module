@@ -8,7 +8,7 @@ use Crm\IssuesModule\Repository\MagazinesRepository;
 use Kdyby\Translation\Translator;
 use League\Flysystem\MountManager;
 use Nette\Application\UI\Form;
-use Nette\Database\IRow;
+use Nette\Database\Table\ActiveRow;
 use Nette\Utils\DateTime;
 use Tomaj\Form\Renderer\BootstrapRenderer;
 
@@ -54,7 +54,7 @@ class IssuesFormFactory
     /**
      * @return Form
      */
-    public function create(IRow $issue = null)
+    public function create(ActiveRow $issue = null)
     {
         $this->issue = $issue;
         $form = new Form;

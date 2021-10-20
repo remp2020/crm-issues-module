@@ -3,13 +3,13 @@
 namespace Crm\IssuesModule\Repository;
 
 use DateTime;
-use Nette\Database\Table\IRow;
+use Nette\Database\Table\ActiveRow;
 
 class IssuePagesRepository extends IssueBaseRepository
 {
     protected $tableName = 'issue_pages';
 
-    final public function add(IRow $issue, $page, $file, $quality, $size, $mime, $width, $height)
+    final public function add(ActiveRow $issue, $page, $file, $quality, $size, $mime, $width, $height)
     {
         $identifier = md5(time() . rand(100000, 99999) . $file . $size);
         $id = $this->insert([
@@ -29,7 +29,7 @@ class IssuePagesRepository extends IssueBaseRepository
         return $this->find($id);
     }
 
-    final public function update(IRow &$row, $data)
+    final public function update(ActiveRow &$row, $data)
     {
         $data['updated_at'] = new DateTime();
         return parent::update($row, $data);
@@ -40,13 +40,13 @@ class IssuePagesRepository extends IssueBaseRepository
         return $this->getTable()->where(['identifier' => $identifier])->limit(1)->fetch();
     }
 
-    final public function delete(IRow &$row)
+    final public function delete(ActiveRow &$row)
     {
         $this->getMountManager()->delete('issues://' . $row->file);
         return parent::delete($row);
     }
 
-    final public function getPages(IRow $issue)
+    final public function getPages(ActiveRow $issue)
     {
         return $this->getTable()->where('issue_id', $issue->id)->order('page');
     }

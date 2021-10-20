@@ -5,7 +5,7 @@ namespace Crm\IssuesModule\Forms;
 use Crm\IssuesModule\Repository\MagazinesRepository;
 use Kdyby\Translation\Translator;
 use Nette\Application\UI\Form;
-use Nette\Database\IRow;
+use Nette\Database\Table\ActiveRow;
 use Tomaj\Form\Renderer\BootstrapRenderer;
 
 class MagazineFormFactory
@@ -33,7 +33,7 @@ class MagazineFormFactory
     /**
      * @return Form
      */
-    public function create(IRow $magazine = null)
+    public function create(ActiveRow $magazine = null)
     {
         $this->magazine = $magazine;
         $form = new Form;
