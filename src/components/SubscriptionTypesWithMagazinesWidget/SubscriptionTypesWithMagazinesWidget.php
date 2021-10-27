@@ -8,7 +8,7 @@ use Crm\IssuesModule\Repository\MagazinesRepository;
 use Crm\IssuesModule\Repository\SubscriptionTypeMagazinesRepository;
 use Crm\SubscriptionsModule\Repository\SubscriptionTypesRepository;
 use Nette\Application\UI\Form;
-use Nette\Localization\ITranslator;
+use Nette\Localization\Translator;
 use Tomaj\Form\Renderer\BootstrapRenderer;
 
 /**
@@ -30,7 +30,7 @@ class SubscriptionTypesWithMagazinesWidget extends BaseWidget
     private $translator;
 
     public function __construct(
-        ITranslator $translator,
+        Translator $translator,
         MagazinesRepository $magazinesRepository,
         SubscriptionTypesRepository $subscriptionTypesRepository,
         SubscriptionTypeMagazinesRepository $subscriptionTypeMagazinesRepository,
