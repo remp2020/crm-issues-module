@@ -29,7 +29,7 @@ class IssuesListingApiHandler extends ApiHandler
         $this->linkGenerator = $linkGenerator;
     }
 
-    public function params()
+    public function params(): array
     {
         return [
             new InputParam(InputParam::TYPE_GET, 'magazine', InputParam::REQUIRED),
