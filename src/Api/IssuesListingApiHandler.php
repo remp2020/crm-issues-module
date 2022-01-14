@@ -19,9 +19,6 @@ class IssuesListingApiHandler extends ApiHandler
 
     private $magazinesRepository;
 
-    /** @var LinkGenerator  */
-    private $linkGenerator;
-
     public function __construct(IssuesRepository $issuesRepository, MagazinesRepository $magazinesRepository, LinkGenerator $linkGenerator)
     {
         $this->issuesRepository = $issuesRepository;

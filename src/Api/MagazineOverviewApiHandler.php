@@ -21,9 +21,6 @@ class MagazineOverviewApiHandler extends ApiHandler
     /** @var IssuesRepository */
     private $issuesRepository;
 
-    /** @var LinkGenerator */
-    private $linkGenerator;
-
     public function __construct(
         MagazinesRepository $magazinesRepository,
         IssuesRepository $issuesRepository,

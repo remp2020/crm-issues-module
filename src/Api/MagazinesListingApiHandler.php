@@ -14,9 +14,6 @@ class MagazinesListingApiHandler extends ApiHandler
     /** @var MagazinesRepository  */
     private $magazinesRepository;
 
-    /** @var LinkGenerator  */
-    private $linkGenerator;
-
     public function __construct(MagazinesRepository $magazinesRepository, LinkGenerator $linkGenerator)
     {
         $this->magazinesRepository = $magazinesRepository;
