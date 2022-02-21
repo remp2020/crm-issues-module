@@ -21,8 +21,8 @@ data:
 			original_files: Soubory budou řazené abecedně podle názvu
 		values:
 			is_published:
-				'yes': Publikované
-				'no': Skryté
+				"yes": Publikované
+				"no": Skryté
 	magazines:
 		fields:
 			name: Název
