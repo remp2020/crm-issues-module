@@ -22,8 +22,8 @@ data:
 			original_files: Files will be sorted alphabeticaly by file name
 		values:
 			is_published:
-				yes: Published
-				no: Hidden
+				"yes": Published
+				"no": Hidden
 	magazines:
 		fields:
 			name: Name
@@ -53,7 +53,7 @@ admin:
 			back: back to issues
 			edit: Edit issue
 			basic_informations: Basic informations
-			no_pages: This issue doesn't have any generated preview files
+			no_pages: "This issue doesn't have any generated preview files"
 			pages: Pages
 			issue_size: Issue size
 			delete_issue: Delete issue with all files
@@ -97,6 +97,6 @@ components:
 			missing_subscription_type_id: Missing subscription type ID. Unable to add magazine to subscription type.
 			no_magazines_to_add: No available magazines
 		messages:
-			no_magazines: This subscription type doesn't contain any magazine.
+			no_magazines: "This subscription type doesn't contain any magazine."
 			added: Magazine '%magazine_name%' was added to this subscription type.
 			removed: Magazine '%magazine_name%' was removed from this subscription type.
