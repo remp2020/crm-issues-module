@@ -1,102 +1,102 @@
 menu:
-	issues: Issues
-	magazines: Magazines
+    issues: Issues
+    magazines: Magazines
 
 data:
-	issues:
-		fields:
-			issued_at: Issued at
-			is_published: Is published
-			cover: Cover image
-			name: Name
-			original_files: Original files
-			state: State
-			identifier: Identifier
-			magazine: Magazine
-		required:
-			issued_at: Issued date is required
-		placeholder:
-			issued_at: For example 13.2.2015
-			name: For example 'Issue 156'
-		description:
-			original_files: Files will be sorted alphabeticaly by file name
-		values:
-			is_published:
-				"yes": Published
-				"no": Hidden
-	magazines:
-		fields:
-			name: Name
-			identifier: Identifier
-			issues: Issues
-			is_default: Default
-		required:
-			name: Name is required
-			identifier: Identifier is rquired
-		placeholder:
-			name: for example Magazine Live
-			identifier: for example magazine-live
+    issues:
+        fields:
+            issued_at: Issued at
+            is_published: Is published
+            cover: Cover image
+            name: Name
+            original_files: Original files
+            state: State
+            identifier: Identifier
+            magazine: Magazine
+        required:
+            issued_at: Issued date is required
+        placeholder:
+            issued_at: For example 13.2.2015
+            name: For example 'Issue 156'
+        description:
+            original_files: Files will be sorted alphabeticaly by file name
+        values:
+            is_published:
+                "yes": Published
+                "no": Hidden
+    magazines:
+        fields:
+            name: Name
+            identifier: Identifier
+            issues: Issues
+            is_default: Default
+        required:
+            name: Name is required
+            identifier: Identifier is rquired
+        placeholder:
+            name: for example Magazine Live
+            identifier: for example magazine-live
 
 admin:
-	issues:
-		default:
-			title: Isuses
-			new: New issue
-		new:
-			title: New issue
-			back: back to issues
-		edit:
-			title: Edit issue %name%
-			header: Edit issue
-			back: back to issue
-		show:
-			back: back to issues
-			edit: Edit issue
-			basic_informations: Basic informations
-			no_pages: "This issue doesn't have any generated preview files"
-			pages: Pages
-			issue_size: Issue size
-			delete_issue: Delete issue with all files
+    issues:
+        default:
+            title: Isuses
+            new: New issue
+        new:
+            title: New issue
+            back: back to issues
+        edit:
+            title: Edit issue %name%
+            header: Edit issue
+            back: back to issue
+        show:
+            back: back to issues
+            edit: Edit issue
+            basic_informations: Basic informations
+            no_pages: "This issue doesn't have any generated preview files"
+            pages: Pages
+            issue_size: Issue size
+            delete_issue: Delete issue with all files
 
-		messages:
-			issue_created: Issue was created
-			issue_updated: Issue was updated
-			issue_deleted: Issue was deleted
-			issue_not_found: "Unable to find issue with ID [#%issue_id%]"
+        messages:
+            issue_created: Issue was created
+            issue_updated: Issue was updated
+            issue_deleted: Issue was deleted
+            issue_not_found: "Unable to find issue with ID [#%issue_id%]"
 
-	magazines:
-		default:
-			title: Magazines
-			new: New magazine
-		new:
-			title: New magazine
-			back: back to magazines
-		edit:
-			title: Edit magazine
-			header: Edit magazine
-			back: back to detail
-		show:
-			edit: Edit magazine
-			back: back to listing
-		messages:
-			magazine_created: Magazine was created
-			magazine_updated: Magazine was updated
+    magazines:
+        default:
+            title: Magazines
+            new: New magazine
+        new:
+            title: New magazine
+            back: back to magazines
+        edit:
+            title: Edit magazine
+            header: Edit magazine
+            back: back to detail
+        show:
+            edit: Edit magazine
+            back: back to listing
+        messages:
+            magazine_created: Magazine was created
+            magazine_updated: Magazine was updated
 
 components:
-	subscription_types_with_magazines:
-		title: Magazines
-		issues: issues
-		add_magazine: Add magazine
-		remove_magazine: Remove
-		fields:
-			magazine:
-				title: Available magazines
-				required: Magazine is required
-				placeholder: '-- Select magazine'
-		error:
-			missing_subscription_type_id: Missing subscription type ID. Unable to add magazine to subscription type.
-			no_magazines_to_add: No available magazines
-		messages:
-			no_magazines: "This subscription type doesn't contain any magazine."
-			added: Magazine '%magazine_name%' was added to this subscription type.
-			removed: Magazine '%magazine_name%' was removed from this subscription type.
+    subscription_types_with_magazines:
+        title: Magazines
+        issues: issues
+        add_magazine: Add magazine
+        remove_magazine: Remove
+        fields:
+            magazine:
+                title: Available magazines
+                required: Magazine is required
+                placeholder: '-- Select magazine'
+        error:
+            missing_subscription_type_id: Missing subscription type ID. Unable to add magazine to subscription type.
+            no_magazines_to_add: No available magazines
+        messages:
+            no_magazines: "This subscription type doesn't contain any magazine."
+            added: Magazine '%magazine_name%' was added to this subscription type.
+            removed: Magazine '%magazine_name%' was removed from this subscription type.
