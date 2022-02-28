@@ -59,10 +59,10 @@ admin:
             delete_issue: Zmaž vydanie so všetkými súbormi
 
         messages:
-            issue_created: Vydanie bolo vytvorené
-            issue_updated: Vydanie bolo upravené
-            issue_deleted: Vydanie bolo zmazané
-            issue_not_found: "Nepodarilo sa nájsť vydanie s ID [#%issue_id%]"
+            issue_created: Vydanie bolo vytvorené.
+            issue_updated: Vydanie bolo upravené.
+            issue_deleted: Vydanie bolo zmazané.
+            issue_not_found: "Nepodarilo sa nájsť vydanie s ID [#%issue_id%]."
 
     magazines:
         default:
@@ -79,8 +79,8 @@ admin:
             edit: Uprav magazín
             back: späť na zoznam
         messages:
-            magazine_created: Magazín bol vytvorený
-            magazine_updated: Magazín bol upravený
+            magazine_created: Magazín bol vytvorený.
+            magazine_updated: Magazín bol upravený.
 
 components:
     subscription_types_with_magazines:
