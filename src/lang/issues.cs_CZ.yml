@@ -56,10 +56,10 @@ admin:
             issue_size: Velikost čísla
             delete_issue: Smaž vydání se všemi soubory
         messages:
-            issue_created: Vydání bylo vytvořené
-            issue_updated: Vydání bylo upravené
-            issue_deleted: Vydání bylo smazané
-            issue_not_found: "Nepodařilo se najít vydání s ID [#%issue_id%]"
+            issue_created: Vydání bylo vytvořené.
+            issue_updated: Vydání bylo upravené.
+            issue_deleted: Vydání bylo smazané.
+            issue_not_found: "Nepodařilo se najít vydání s ID [#%issue_id%]."
     magazines:
         default:
             title: Magazíny
@@ -75,8 +75,8 @@ admin:
             edit: Uprav magazín
             back: zpět na seznam
         messages:
-            magazine_created: Magazín byl vytvořený
-            magazine_updated: Magazín byl upraven
+            magazine_created: Magazín byl vytvořený.
+            magazine_updated: Magazín byl upraven.
 
 components:
     subscription_types_with_magazines:
