@@ -1,5 +1,7 @@
 # CRM Issues Module
 
+[![Translation status @ Weblate](https://hosted.weblate.org/widgets/remp-crm/-/issues-module/svg-badge.svg)](https://hosted.weblate.org/projects/remp-crm/issues-module/)
+
 ## Configuration
 
 ### Directory
