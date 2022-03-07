@@ -50,13 +50,13 @@ class IssuesModule extends CrmModule
     public function registerApiCalls(ApiRoutersContainerInterface $apiRoutersContainer)
     {
         $apiRoutersContainer->attachRouter(
-            new ApiRoute(new ApiIdentifier('1', 'magazines', 'default'), 'Crm\IssuesModule\Api\MagazinesListingApiHandler', 'Crm\ApiModule\Authorization\NoAuthorization')
+            new ApiRoute(new ApiIdentifier('1', 'magazines', 'list'), 'Crm\IssuesModule\Api\MagazinesListingApiHandler', 'Crm\ApiModule\Authorization\NoAuthorization')
         );
         $apiRoutersContainer->attachRouter(
             new ApiRoute(new ApiIdentifier('1', 'magazine', 'overview'), 'Crm\IssuesModule\Api\MagazineOverviewApiHandler', 'Crm\ApiModule\Authorization\NoAuthorization')
         );
         $apiRoutersContainer->attachRouter(
-            new ApiRoute(new ApiIdentifier('1', 'issues', 'default'), 'Crm\IssuesModule\Api\IssuesListingApiHandler', 'Crm\ApiModule\Authorization\NoAuthorization')
+            new ApiRoute(new ApiIdentifier('1', 'issues', 'list'), 'Crm\IssuesModule\Api\IssuesListingApiHandler', 'Crm\ApiModule\Authorization\NoAuthorization')
         );
         $apiRoutersContainer->attachRouter(
             new ApiRoute(new ApiIdentifier('1', 'issues', 'detail'), 'Crm\IssuesModule\Api\IssuesDetailApiHandler', 'Crm\ApiModule\Authorization\NoAuthorization')
