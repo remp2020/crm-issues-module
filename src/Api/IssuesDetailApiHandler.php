@@ -3,13 +3,13 @@
 namespace Crm\IssuesModule\Api;
 
 use Crm\ApiModule\Api\ApiHandler;
-use Crm\ApiModule\Api\JsonResponse;
 use Crm\ApiModule\Params\InputParam;
 use Crm\ApiModule\Params\ParamsProcessor;
-use Crm\ApiModule\Response\ApiResponseInterface;
 use Crm\IssuesModule\Repository\IssuesRepository;
 use Nette\Application\LinkGenerator;
 use Nette\Http\Response;
+use Tomaj\NetteApi\Response\JsonApiResponse;
+use Tomaj\NetteApi\Response\ResponseInterface;
 
 class IssuesDetailApiHandler extends ApiHandler
 {
@@ -30,7 +30,7 @@ class IssuesDetailApiHandler extends ApiHandler
     }
 
 
-    public function handle(array $params): ApiResponseInterface
+    public function handle(array $params): ResponseInterface
     {
         $paramsProcessor = new ParamsProcessor($this->params());
         $params = $paramsProcessor->getValues();
@@ -38,8 +38,7 @@ class IssuesDetailApiHandler extends ApiHandler
 
         $issue = $this->issuesRepository->findByIdentifier($issueIdentifier);
         if (!$issue || !$issue->is_published) {
-            $response = new JsonResponse(['status' => 'error', 'message' => 'Issue not found']);
-            $response->setHttpCode(Response::S404_NOT_FOUND);
+            $response = new JsonApiResponse(Response::S404_NOT_FOUND, ['status' => 'error', 'message' => 'Issue not found']);
             return $response;
         }
 
@@ -103,8 +102,7 @@ class IssuesDetailApiHandler extends ApiHandler
             'prev_issue' => $prevIssueArray,
         ];
 
-        $response = new JsonResponse($result);
-        $response->setHttpCode(Response::S200_OK);
+        $response = new JsonApiResponse(Response::S200_OK, $result);
 
         return $response;
     }

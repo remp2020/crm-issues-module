@@ -3,14 +3,14 @@
 namespace Crm\IssuesModule\Api;
 
 use Crm\ApiModule\Api\ApiHandler;
-use Crm\ApiModule\Api\JsonResponse;
 use Crm\ApiModule\Params\InputParam;
 use Crm\ApiModule\Params\ParamsProcessor;
-use Crm\ApiModule\Response\ApiResponseInterface;
 use Crm\IssuesModule\Repository\IssuesRepository;
 use Crm\IssuesModule\Repository\MagazinesRepository;
 use Nette\Application\LinkGenerator;
 use Nette\Http\Response;
+use Tomaj\NetteApi\Response\JsonApiResponse;
+use Tomaj\NetteApi\Response\ResponseInterface;
 
 class IssuesListingApiHandler extends ApiHandler
 {
@@ -35,7 +35,7 @@ class IssuesListingApiHandler extends ApiHandler
     }
 
 
-    public function handle(array $params): ApiResponseInterface
+    public function handle(array $params): ResponseInterface
     {
         $selectedYear = intval(date('Y'));
 
@@ -47,8 +47,7 @@ class IssuesListingApiHandler extends ApiHandler
 
         $magazine = $this->magazinesRepository->findByIdentifier($params['magazine']);
         if (!$magazine) {
-            $response = new JsonResponse(['status' => 'error', 'message' => 'Magazine not found']);
-            $response->setHttpCode(Response::S404_NOT_FOUND);
+            $response = new JsonApiResponse(Response::S404_NOT_FOUND, ['status' => 'error', 'message' => 'Magazine not found']);
             return $response;
         }
 
@@ -90,8 +89,7 @@ class IssuesListingApiHandler extends ApiHandler
             'years' => $yearsArray,
         ];
 
-        $response = new JsonResponse($result);
-        $response->setHttpCode(Response::S200_OK);
+        $response = new JsonApiResponse(Response::S200_OK, $result);
 
         return $response;
     }

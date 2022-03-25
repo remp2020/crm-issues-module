@@ -3,11 +3,11 @@
 namespace Crm\IssuesModule\Api;
 
 use Crm\ApiModule\Api\ApiHandler;
-use Crm\ApiModule\Api\JsonResponse;
-use Crm\ApiModule\Response\ApiResponseInterface;
 use Crm\IssuesModule\Repository\MagazinesRepository;
 use Nette\Application\LinkGenerator;
 use Nette\Http\Response;
+use Tomaj\NetteApi\Response\JsonApiResponse;
+use Tomaj\NetteApi\Response\ResponseInterface;
 
 class MagazinesListingApiHandler extends ApiHandler
 {
@@ -26,7 +26,7 @@ class MagazinesListingApiHandler extends ApiHandler
     }
 
 
-    public function handle(array $params): ApiResponseInterface
+    public function handle(array $params): ResponseInterface
     {
         $magazines = $this->magazinesRepository->all();
 
@@ -47,8 +47,7 @@ class MagazinesListingApiHandler extends ApiHandler
             'items' => $magazinesArray,
         ];
 
-        $response = new JsonResponse($result);
-        $response->setHttpCode(Response::S200_OK);
+        $response = new JsonApiResponse(Response::S200_OK, $result);
 
         return $response;
     }
