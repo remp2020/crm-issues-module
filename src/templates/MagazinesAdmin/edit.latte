@@ -1,13 +1,13 @@
-{block #title}{_issues.admin.magazines.edit.title name => $magazine->name}{/block}
+{block #title}{_'issues.admin.magazines.edit.title', [name => $magazine->name]}{/block}
 
 {block #content}
 
 <div class="row">
   <div class="col-md-12">
-    <a n:href="show $magazine->id"><i class="fa fa-angle-left"></i> {_issues.admin.magazines.edit.back}</a>
+    <a n:href="show $magazine->id"><i class="fa fa-angle-left"></i> {_'issues.admin.magazines.edit.back'}</a>
     <div class="page-header">
       <h1>
-        {_issues.admin.magazines.edit.header}
+        {_'issues.admin.magazines.edit.header'}
         <small>[{$magazine->id}]</small>
       	{$magazine->name}
       </h1>

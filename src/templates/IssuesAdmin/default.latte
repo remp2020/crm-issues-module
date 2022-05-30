@@ -1,4 +1,4 @@
-{block #title}{_issues.admin.issues.default.title}{/block}
+{block #title}{_'issues.admin.issues.default.title'}{/block}
 
 {block #content}
 
@@ -7,13 +7,13 @@
 <div class="row">
   <div class="col-md-12">
     <h2>
-      {_issues.admin.issues.default.title}
-      <small> / {_system.total} {$totalIssues}
+      {_'issues.admin.issues.default.title'}
+      <small> / {_'system.total'} {$totalIssues}
         {if $totalIssues != $filteredCount}
-          , {_system.filtered} {$filteredCount}
+          , {_'system.filtered'} {$filteredCount}
         {/if}
       </small>
-      <a n:href="new" class="btn btn-success btn-lg pull-right"><i class="fa fa-newspaper"></i> {_issues.admin.issues.default.new}</a>
+      <a n:href="new" class="btn btn-success btn-lg pull-right"><i class="fa fa-newspaper"></i> {_'issues.admin.issues.default.new'}</a>
     </h2>
   </div>
   <div class="col-md-12">
@@ -25,11 +25,11 @@
     <table class="table table-striped table-hover table-bordered">
       <thead>
         <tr>
-          <th>{_issues.data.issues.fields.issued_at}</th>
-          <th>{_issues.data.issues.fields.magazine}</th>
-          <th>{_issues.data.issues.fields.is_published}</th>
-          <th>{_system.fields.created}</th>
-          <th>{_system.actions}</th>
+          <th>{_'issues.data.issues.fields.issued_at'}</th>
+          <th>{_'issues.data.issues.fields.magazine'}</th>
+          <th>{_'issues.data.issues.fields.is_published'}</th>
+          <th>{_'system.fields.created'}</th>
+          <th>{_'system.actions'}</th>
         </tr>
       </thead>
       <tbody>
@@ -51,8 +51,8 @@
           <td>{$issue->created_at|userDate}</td>
           <td>
             <p class="text-nowrap">
-              <a n:href="show $issue->id" class="btn btn-sm btn-info" title="{_system.show}"><i class="fa fa-eye"></i> </a>
-              <a n:href="edit $issue->id" class="btn btn-sm btn-primary" title="{_system.edit}"><i class="fa fa-edit"></i> </a>
+              <a n:href="show $issue->id" class="btn btn-sm btn-info" title="{_'system.show'}"><i class="fa fa-eye"></i> </a>
+              <a n:href="edit $issue->id" class="btn btn-sm btn-primary" title="{_'system.edit'}"><i class="fa fa-edit"></i> </a>
             </p>
           </td>
         </tr>
