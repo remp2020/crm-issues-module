@@ -2,6 +2,7 @@
 
 namespace Crm\IssuesModule\Repository;
 
+use Crm\ApplicationModule\Cache\CacheRepository;
 use Crm\ApplicationModule\Models\ApplicationMountManager;
 use Nette\Database\Explorer;
 use Nette\Database\Table\ActiveRow;
@@ -22,15 +23,20 @@ class IssuesRepository extends IssueBaseRepository
     /** @var IssuePagesRepository  */
     private $issuePagesRepository;
 
+    /** @var CacheRepository */
+    private $cacheRepository;
+
     public function __construct(
         Explorer $database,
         ApplicationMountManager $mountManager,
         IssueSourceFilesRepository $issueSourceFilesRepository,
-        IssuePagesRepository $issuePagesRepository
+        IssuePagesRepository $issuePagesRepository,
+        CacheRepository $cacheRepository
     ) {
         parent::__construct($database, $mountManager);
         $this->issueSourceFilesRepository = $issueSourceFilesRepository;
         $this->issuePagesRepository = $issuePagesRepository;
+        $this->cacheRepository = $cacheRepository;
     }
 
     final public function add(
@@ -125,9 +131,20 @@ class IssuesRepository extends IssueBaseRepository
         ]);
     }
 
-    final public function totalCount()
+    final public function totalCount($allowCached = false, $forceCacheUpdate = false)
     {
-        return $this->getTable()->count('*');
+        $callable = function () {
+            return parent::totalCount();
+        };
+        if ($allowCached) {
+            return $this->cacheRepository->loadAndUpdate(
+                'issues_count',
+                $callable,
+                \Nette\Utils\DateTime::from(CacheRepository::REFRESH_TIME_5_MINUTES),
+                $forceCacheUpdate
+            );
+        }
+        return $callable();
     }
 
     final public function totalPublished(ActiveRow $magazine)

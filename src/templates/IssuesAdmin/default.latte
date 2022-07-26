@@ -2,17 +2,12 @@
 
 {block #content}
 
-{var $filteredCount = $issues->count('*')}
-
 <div class="row">
   <div class="col-md-12">
     <h2>
       {_'issues.admin.issues.default.title'}
-      <small> / {_'system.total'} {$totalIssues}
-        {if $totalIssues != $filteredCount}
-          , {_'system.filtered'} {$filteredCount}
-        {/if}
-      </small>
+      <small> / {_'system.total'} {$totalIssues}</small>
+
       <a n:href="new" class="btn btn-success btn-lg pull-right"><i class="fa fa-newspaper"></i> {_'issues.admin.issues.default.new'}</a>
     </h2>
   </div>
@@ -58,6 +53,6 @@
         </tr>
       </tbody>
     </table>
-    {control vp}
+    {control paginator}
   </div>
 </div>

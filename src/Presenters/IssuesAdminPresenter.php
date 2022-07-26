@@ -3,7 +3,7 @@
 namespace Crm\IssuesModule\Presenters;
 
 use Crm\AdminModule\Presenters\AdminPresenter;
-use Crm\ApplicationModule\Components\VisualPaginator;
+use Crm\ApplicationModule\Components\PreviousNextPaginator;
 use Crm\IssuesModule\Forms\IssuesFormFactory;
 use Crm\IssuesModule\Repository\IssuesRepository;
 use Crm\IssuesModule\Repository\MagazinesRepository;
@@ -33,15 +33,16 @@ class IssuesAdminPresenter extends AdminPresenter
         $magazine = $this->magazineRepository->find($this->magazine);
         $issues = $this->issuesRepository->getIssues($magazine ? $magazine : null);
 
-        $vp = new VisualPaginator();
-        $this->addComponent($vp, 'vp');
-        $paginator = $vp->getPaginator();
-        $paginator->setItemCount($issues->count('*'));
+        $pnp = new PreviousNextPaginator();
+        $this->addComponent($pnp, 'paginator');
+        $paginator = $pnp->getPaginator();
         $paginator->setItemsPerPage($this->onPage);
-        $this->template->vp = $vp;
 
-        $this->template->issues = $issues->limit($paginator->getLength(), $paginator->getOffset());
-        $this->template->totalIssues = $this->issuesRepository->totalCount();
+        $issues = $issues->limit($paginator->getLength(), $paginator->getOffset())->fetchAll();
+        $pnp->setActualItemCount(count($issues));
+
+        $this->template->issues = $issues;
+        $this->template->totalIssues = $this->issuesRepository->totalCount(true);
     }
 
     /**
