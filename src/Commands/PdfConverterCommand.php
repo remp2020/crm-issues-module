@@ -52,9 +52,9 @@ class PdfConverterCommand extends Command
         // skontrolujeme ci nebezi uz nejaky converter
         $pids = false;
         exec('ps uax | grep "issues:converter"', $pids);
-        if (count($pids) > 4) {
+        if (count($pids) > 5) {
             $output->writeln('Already running other converter');
-            return;
+            return Command::FAILURE;
         }
 
         $issues = $this->issuesRepository->getIssuesForConverting();
