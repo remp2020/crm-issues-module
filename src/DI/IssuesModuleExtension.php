@@ -2,10 +2,10 @@
 
 namespace Crm\IssuesModule\DI;
 
-use Kdyby\Translation\DI\ITranslationProvider;
+use Contributte\Translation\DI\TranslationProviderInterface;
 use Nette\DI\CompilerExtension;
 
-class IssuesModuleExtension extends CompilerExtension implements ITranslationProvider
+class IssuesModuleExtension extends CompilerExtension implements TranslationProviderInterface
 {
     private $defaults = [];
 
@@ -32,7 +32,7 @@ class IssuesModuleExtension extends CompilerExtension implements ITranslationPro
      * Return array of directories, that contain resources for translator.
      * @return string[]
      */
-    public function getTranslationResources()
+    public function getTranslationResources(): array
     {
         return [__DIR__ . '/../lang/'];
     }

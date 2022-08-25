@@ -2,8 +2,8 @@
 
 namespace Crm\IssuesModule\Forms;
 
+use Contributte\Translation\Translator;
 use Crm\IssuesModule\Repository\MagazinesRepository;
-use Kdyby\Translation\Translator;
 use Nette\Application\UI\Form;
 use Nette\Database\Table\ActiveRow;
 use Tomaj\Form\Renderer\BootstrapRenderer;

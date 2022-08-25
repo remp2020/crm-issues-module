@@ -2,10 +2,10 @@
 
 namespace Crm\IssuesModule\Forms;
 
+use Contributte\Translation\Translator;
 use Crm\IssuesModule\Repository\IssueSourceFilesRepository;
 use Crm\IssuesModule\Repository\IssuesRepository;
 use Crm\IssuesModule\Repository\MagazinesRepository;
-use Kdyby\Translation\Translator;
 use League\Flysystem\MountManager;
 use Nette\Application\UI\Form;
 use Nette\Database\Table\ActiveRow;
