@@ -2,8 +2,8 @@
 
 namespace Crm\IssuesModule\Components;
 
-use Crm\ApplicationModule\Widget\BaseWidget;
-use Crm\ApplicationModule\Widget\WidgetManager;
+use Crm\ApplicationModule\Widget\BaseLazyWidget;
+use Crm\ApplicationModule\Widget\LazyWidgetManager;
 use Crm\IssuesModule\Repository\MagazinesRepository;
 use Crm\IssuesModule\Repository\SubscriptionTypeMagazinesRepository;
 use Crm\SubscriptionsModule\Repository\SubscriptionTypesRepository;
@@ -17,7 +17,7 @@ use Tomaj\Form\Renderer\BootstrapRenderer;
  *
  * @package Crm\IssuesModule\Components
  */
-class SubscriptionTypesWithMagazinesWidget extends BaseWidget
+class SubscriptionTypesWithMagazinesWidget extends BaseLazyWidget
 {
     private $templateName = 'subscription_types_with_magazines_widget.latte';
 
@@ -34,9 +34,9 @@ class SubscriptionTypesWithMagazinesWidget extends BaseWidget
         MagazinesRepository $magazinesRepository,
         SubscriptionTypesRepository $subscriptionTypesRepository,
         SubscriptionTypeMagazinesRepository $subscriptionTypeMagazinesRepository,
-        WidgetManager $widgetManager
+        LazyWidgetManager $lazyWidgetManager
     ) {
-        parent::__construct($widgetManager);
+        parent::__construct($lazyWidgetManager);
 
         $this->magazinesRepository = $magazinesRepository;
         $this->subscriptionTypesRepository = $subscriptionTypesRepository;

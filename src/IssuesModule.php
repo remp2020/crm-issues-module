@@ -9,7 +9,7 @@ use Crm\ApplicationModule\Commands\CommandsContainerInterface;
 use Crm\ApplicationModule\CrmModule;
 use Crm\ApplicationModule\Menu\MenuContainerInterface;
 use Crm\ApplicationModule\Menu\MenuItem;
-use Crm\ApplicationModule\Widget\WidgetManagerInterface;
+use Crm\ApplicationModule\Widget\LazyWidgetManagerInterface;
 
 class IssuesModule extends CrmModule
 {
@@ -63,11 +63,11 @@ class IssuesModule extends CrmModule
         );
     }
 
-    public function registerWidgets(WidgetManagerInterface $widgetManager)
+    public function registerLazyWidgets(LazyWidgetManagerInterface $widgetManager)
     {
         $widgetManager->registerWidget(
             'subscription_types_admin.show.middle',
-            $this->getInstance(\Crm\IssuesModule\Components\SubscriptionTypesWithMagazinesWidget::class),
+            \Crm\IssuesModule\Components\SubscriptionTypesWithMagazinesWidget::class,
             100
         );
     }
