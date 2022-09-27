@@ -53,6 +53,12 @@ class SyncFtpIssuesCommand extends Command
                 InputOption::VALUE_OPTIONAL,
                 'Ftp root path'
             )
+            ->addOption(
+                'delete-remote-after',
+                null,
+                InputOption::VALUE_NONE,
+                'Delete downloaded files from remote after download finished',
+            )
         ;
     }
 
@@ -87,6 +93,11 @@ class SyncFtpIssuesCommand extends Command
 
             if ($manager->has("local://{$entry['path']}") === true) {
                 $output->writeln('Already downloaded <info>' . $entry['path'] . '</info>');
+
+                // file is downloaded; delete from remote if flag is set
+                if ($input->getOption('delete-remote-after')) {
+                    $this->deleteRemoteFile($manager, $entry['path'], $output);
+                }
                 continue;
             }
 
@@ -95,7 +106,15 @@ class SyncFtpIssuesCommand extends Command
             while (true) {
                 $output->writeln('Downloading <info>' . $entry['path'] . '</info>');
                 try {
-                    $manager->put("local://{$entry['path']}", $manager->read("ftp://{$entry['path']}"));
+                    $result = $manager->put("local://{$entry['path']}", $manager->read("ftp://{$entry['path']}"));
+                    if ($result) {
+                        $output->writeln(' * File downloaded.');
+
+                        // file is downloaded; delete from remote if flag is set
+                        if ($input->getOption('delete-remote-after')) {
+                            $this->deleteRemoteFile($manager, $entry['path'], $output);
+                        }
+                    }
                     break;
                 } catch (FileNotFoundException | ErrorException $exception) {
                     if ($retryCount >= self::MAX_RETRY_COUNT) {
@@ -115,5 +134,16 @@ class SyncFtpIssuesCommand extends Command
         $output->writeln('');
 
         return Command::SUCCESS;
+    }
+
+    private function deleteRemoteFile(MountManager $mountManager, string $path, OutputInterface $output)
+    {
+        $result = $mountManager->delete("ftp://{$path}");
+        if ($result) {
+            $output->writeln(' * Remote file deleted.');
+        } else {
+            $output->writeln(' * Unable to delete remote file.');
+            Debugger::log("Cannot delete remote file '{$path}'", ILogger::ERROR);
+        }
     }
 }
