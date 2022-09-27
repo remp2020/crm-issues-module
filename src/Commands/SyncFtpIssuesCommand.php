@@ -2,9 +2,6 @@
 
 namespace Crm\IssuesModule\Commands;
 
-use Crm\IssuesModule\Repository\IssueSourceFilesRepository;
-use Crm\IssuesModule\Repository\IssuesRepository;
-use Crm\IssuesModule\Repository\MagazinesRepository;
 use ErrorException;
 use League\Flysystem\Adapter\Ftp;
 use League\Flysystem\Adapter\Local;
@@ -21,27 +18,6 @@ use Tracy\ILogger;
 class SyncFtpIssuesCommand extends Command
 {
     private const MAX_RETRY_COUNT = 3;
-
-    /** @var IssuesRepository  */
-    private $issuesRepository;
-
-    /** @var IssueSourceFilesRepository  */
-    private $issueSourceFilesRepository;
-
-    /** @var MountManager  */
-    private $mountManager;
-
-    /** @var MagazinesRepository  */
-    private $magazinesRepository;
-
-    public function __construct(MountManager $mountManager, IssuesRepository $issuesRepository, IssueSourceFilesRepository $issueSourceFilesRepository, MagazinesRepository $magazinesRepository)
-    {
-        parent::__construct();
-        $this->issuesRepository = $issuesRepository;
-        $this->issueSourceFilesRepository = $issueSourceFilesRepository;
-        $this->mountManager = $mountManager;
-        $this->magazinesRepository = $magazinesRepository;
-    }
 
     protected function configure()
     {
