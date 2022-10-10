@@ -90,8 +90,8 @@ class CoverFtpUploadCommand extends Command
 
         $issue = $this->issuesRepository->getIssues($magazine)->where(['issued_at' => $date, 'state' => IssuesRepository::STATE_OK])->fetch();
         if (!$issue) {
-            $output->writeln("Issue with date <comment>{$date->format('d.m.Y')}</comment> doens't exists");
-            return;
+            $output->writeln("Issue with date <comment>{$date->format('d.m.Y')}</comment> doesn't exists");
+            return Command::FAILURE;
         }
 
         $fileName = str_replace('*date1*', $issue->issued_at->format('Ymd'), $format);
