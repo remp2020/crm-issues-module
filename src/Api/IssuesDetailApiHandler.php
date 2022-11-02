@@ -69,7 +69,7 @@ class IssuesDetailApiHandler extends ApiHandler
                 'id' => $nextIssue->identifier,
                 'issued_at' => $nextIssue->issued_at->format('d.m.Y'),
                 'name' => $nextIssue->name,
-                'detail' => $this->linkGenerator->link('Api:Api:api', ['version' => 1, 'category' => 'issues', 'apiaction' => 'detail', 'issue' => $nextIssue->identifier]),
+                'detail' => $this->linkGenerator->link('Api:Api:default', ['version' => 1, 'package' => 'issues', 'apiAction' => 'detail', 'issue' => $nextIssue->identifier]),
                 'cover' => $this->linkGenerator->link('Issues:Download:cover', ['id' => $nextIssue->identifier]),
             ];
         }
@@ -79,7 +79,7 @@ class IssuesDetailApiHandler extends ApiHandler
                 'id' => $prevIssue->identifier,
                 'issued_at' => $prevIssue->issued_at->format('d.m.Y'),
                 'name' => $prevIssue->name,
-                'detail' => $this->linkGenerator->link('Api:Api:api', ['version' => 1, 'category' => 'issues', 'apiaction' => 'detail', 'issue' => $prevIssue->identifier]),
+                'detail' => $this->linkGenerator->link('Api:Api:default', ['version' => 1, 'package' => 'issues', 'apiAction' => 'detail', 'issue' => $prevIssue->identifier]),
                 'cover' => $this->linkGenerator->link('Issues:Download:cover', ['id' => $prevIssue->identifier]),
             ];
         }
@@ -92,7 +92,7 @@ class IssuesDetailApiHandler extends ApiHandler
                 'name' => $issue->name,
                 'magazine' => [
                     'name' => $issue->magazine->name,
-                    'link' => $this->linkGenerator->link('Api:Api:api', ['version' => 1, 'category' => 'magazines', 'apiaction' => 'default', 'magazine' => $issue->magazine->identifier])
+                    'link' => $this->linkGenerator->link('Api:Api:default', ['version' => 1, 'package' => 'magazines', 'apiAction' => 'default', 'magazine' => $issue->magazine->identifier])
                 ],
                 'cover' => $this->linkGenerator->link('Issues:Download:cover', ['id' => $issue->identifier]),
                 'total_pages' => $totalPages,
