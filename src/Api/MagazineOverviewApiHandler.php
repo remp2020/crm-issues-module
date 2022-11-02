@@ -64,12 +64,12 @@ class MagazineOverviewApiHandler extends ApiHandler
                             'id' => $issue->identifier,
                             'issued_at' => $issue->issued_at->format('d.m.Y'),
                             'name' => $issue->name,
-                            'detail' => $this->linkGenerator->link('Api:Api:api', ['version' => 1, 'category' => 'issues', 'apiaction' => 'detail', 'issue' => $issue->identifier]),
+                            'detail' => $this->linkGenerator->link('Api:Api:default', ['version' => 1, 'package' => 'issues', 'apiAction' => 'detail', 'issue' => $issue->identifier]),
                             'cover' => $this->linkGenerator->link('Issues:Download:cover', ['id' => $issue->identifier]),
                         ];
                     }, $this->issuesRepository->lastIssues($magazine, $year->year, 6)->fetchAll())),
                 ],
-                'link' => $this->linkGenerator->link('Api:Api:api', ['version' => 1, 'category' => 'issues', 'apiaction' => 'default', 'magazine' => $magazine->identifier, 'year' => $year->year])
+                'link' => $this->linkGenerator->link('Api:Api:default', ['version' => 1, 'package' => 'issues', 'apiAction' => 'default', 'magazine' => $magazine->identifier, 'year' => $year->year])
             ];
         }
 
@@ -78,7 +78,7 @@ class MagazineOverviewApiHandler extends ApiHandler
             'magazine' => [
                 'identifier' => $magazine->identifier,
                 'name' => $magazine->name,
-                'issues_link' => $this->linkGenerator->link('Api:Api:api', ['version' => 1, 'category' => 'issues', 'apiaction' => 'default', 'magazine' => $magazine->identifier]),
+                'issues_link' => $this->linkGenerator->link('Api:Api:default', ['version' => 1, 'package' => 'issues', 'apiAction' => 'default', 'magazine' => $magazine->identifier]),
             ],
             'total' => $total,
             'years' => $yearsArray,

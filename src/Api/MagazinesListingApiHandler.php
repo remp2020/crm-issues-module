@@ -37,7 +37,7 @@ class MagazinesListingApiHandler extends ApiHandler
             $magazinesArray[] = [
                 'identifier' => $magazine->identifier,
                 'name' => $magazine->name,
-                'issues_link' => $this->linkGenerator->link('Api:Api:api', ['version' => 1, 'category' => 'issues', 'apiaction' => 'default', 'magazine' => $magazine->identifier]),
+                'issues_link' => $this->linkGenerator->link('Api:Api:default', ['version' => 1, 'package' => 'issues', 'apiAction' => 'default', 'magazine' => $magazine->identifier]),
             ];
         }
 

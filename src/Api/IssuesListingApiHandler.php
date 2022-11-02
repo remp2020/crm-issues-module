@@ -61,7 +61,7 @@ class IssuesListingApiHandler extends ApiHandler
                 'id' => $issue->identifier,
                 'issued_at' => $issue->issued_at->format('d.m.Y'),
                 'name' => $issue->name,
-                'detail' => $this->linkGenerator->link('Api:Api:api', ['version' => 1, 'category' => 'issues', 'apiaction' => 'detail', 'issue' => $issue->identifier]),
+                'detail' => $this->linkGenerator->link('Api:Api:default', ['version' => 1, 'package' => 'issues', 'apiAction' => 'detail', 'issue' => $issue->identifier]),
                 'cover' => $this->linkGenerator->link('Issues:Download:cover', ['id' => $issue->identifier]),
             ];
             $counter++;
@@ -73,7 +73,7 @@ class IssuesListingApiHandler extends ApiHandler
             $yearsArray[] = [
                 'year' => $year->year,
                 'issues' => $year->count,
-                'link' => $this->linkGenerator->link('Api:Api:api', ['version' => 1, 'category' => 'issues', 'apiaction' => 'default', 'magazine' => $magazine->identifier, 'year' => $year->year])
+                'link' => $this->linkGenerator->link('Api:Api:default', ['version' => 1, 'package' => 'issues', 'apiAction' => 'default', 'magazine' => $magazine->identifier, 'year' => $year->year])
             ];
         }
 
