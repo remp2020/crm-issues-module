@@ -89,7 +89,7 @@ class PdfConverterCommand extends Command
                     if ($cover == null) {
                         $data = $this->converter->generateCover($pdfFile);
                         $file = $data['file'];
-                        $cover = $folder . '/cover_' . md5($issueSource->file . $pdfFile . microtime() . rand(10000, 1000)) . '.jpg';
+                        $cover = $folder . '/cover_' . md5($issueSource->file . $pdfFile . microtime() . rand(1000, 10000)) . '.jpg';
                         $contents = file_get_contents($file);
                         $this->mountManager->write("issues://$cover", $contents);
                         unlink($file);
@@ -115,7 +115,7 @@ class PdfConverterCommand extends Command
 
                     $data = $smallImages[$i];
                     $page = $data['file'];
-                    $filename = 'small_' . md5($number . '-' . $page . microtime() . rand(10000, 1000)) . '.jpg';
+                    $filename = 'small_' . md5($number . '-' . $page . microtime() . rand(1000, 10000)) . '.jpg';
                     $contents = file_get_contents($page);
                     $this->mountManager->write("issues://$folder/$filename", $contents);
                     unlink($page);
@@ -123,7 +123,7 @@ class PdfConverterCommand extends Command
 
                     $data = $largeImages[$i];
                     $page = $data['file'];
-                    $filename = 'large_' . md5($number . '-' . $page . microtime() . rand(10000, 1000)) . '.jpg';
+                    $filename = 'large_' . md5($number . '-' . $page . microtime() . rand(1000, 10000)) . '.jpg';
                     $contents = file_get_contents($page);
                     $this->mountManager->write("issues://$folder/$filename", $contents);
                     unlink($page);

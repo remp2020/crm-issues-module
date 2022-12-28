@@ -47,7 +47,7 @@ class IssuesRepository extends IssueBaseRepository
         $state = self::STATE_NEW,
         $checksum = null
     ) {
-        $identifier = md5(time() . rand(100000, 99999) . $name);
+        $identifier = md5(time() . rand(99999, 100000) . $name);
         $id = $this->insert([
             'magazine_id' => $magazine->id,
             'identifier' => $identifier,

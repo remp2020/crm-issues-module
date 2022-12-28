@@ -11,7 +11,7 @@ class IssueSourceFilesRepository extends IssueBaseRepository
 
     final public function add(ActiveRow $issue, $file, $originalName, $size, $mime)
     {
-        $identifier = md5(time() . rand(100000, 99999) . $originalName . $file . $size);
+        $identifier = md5(time() . rand(99999, 100000) . $originalName . $file . $size);
         $id = $this->insert([
             'identifier' => $identifier,
             'issue_id' => $issue->id,

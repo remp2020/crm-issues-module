@@ -11,7 +11,7 @@ class IssuePagesRepository extends IssueBaseRepository
 
     final public function add(ActiveRow $issue, $page, $file, $quality, $size, $mime, $width, $height)
     {
-        $identifier = md5(time() . rand(100000, 99999) . $file . $size);
+        $identifier = md5(time() . rand(99999, 100000) . $file . $size);
         $id = $this->insert([
             'issue_id' => $issue->id,
             'identifier' => $identifier,
