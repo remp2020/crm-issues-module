@@ -2,6 +2,7 @@
 
 namespace Crm\IssuesModule\Commands;
 
+use Crm\ApplicationModule\Commands\DecoratedCommandTrait;
 use ErrorException;
 use League\Flysystem\Adapter\Ftp;
 use League\Flysystem\Adapter\Local;
@@ -17,6 +18,8 @@ use Tracy\ILogger;
 
 class SyncFtpIssuesCommand extends Command
 {
+    use DecoratedCommandTrait;
+
     private const MAX_RETRY_COUNT = 3;
 
     protected function configure()
@@ -64,10 +67,6 @@ class SyncFtpIssuesCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln('');
-        $output->writeln('<info>***** SYNC FTP IMPORT *****</info>');
-        $output->writeln('');
-
         $ftpAdapter = new Ftp([
             'host' => $input->getOption('host'),
             'username' => $input->getOption('username'),
@@ -129,10 +128,7 @@ class SyncFtpIssuesCommand extends Command
             }
         }
 
-        $output->writeln('');
         $output->writeln('Done');
-        $output->writeln('');
-
         return Command::SUCCESS;
     }
 
