@@ -13,32 +13,19 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Tracy\Debugger;
+use Tracy\ILogger;
 
 class ImportCommand extends Command
 {
-    private $issuesRepository;
-
-    private $issueSourceFilesRepository;
-
-    private $mountManager;
-
-    private $magazinesRepository;
-
-    private $filePatternProcessor;
-
     public function __construct(
-        MountManager $mountManager,
-        IssuesRepository $issuesRepository,
-        IssueSourceFilesRepository $issueSourceFilesRepository,
-        MagazinesRepository $magazinesRepository,
-        IFilePatternProcessor $filePatternProcessor
+        private MountManager $mountManager,
+        private IssuesRepository $issuesRepository,
+        private IssueSourceFilesRepository $issueSourceFilesRepository,
+        private MagazinesRepository $magazinesRepository,
+        private IFilePatternProcessor $filePatternProcessor
     ) {
         parent::__construct();
-        $this->issuesRepository = $issuesRepository;
-        $this->issueSourceFilesRepository = $issueSourceFilesRepository;
-        $this->mountManager = $mountManager;
-        $this->magazinesRepository = $magazinesRepository;
-        $this->filePatternProcessor = $filePatternProcessor;
     }
 
     protected function configure()
@@ -67,6 +54,12 @@ class ImportCommand extends Command
                 'p',
                 InputOption::VALUE_OPTIONAL,
                 'Custom pattern for file matching (usable for non-standard issues)'
+            )
+            ->addOption(
+                'delete-source-after',
+                null,
+                InputOption::VALUE_NONE,
+                'Remove source files after successful import.',
             )
         ;
     }
@@ -154,6 +147,22 @@ class ImportCommand extends Command
         // nastaviem na new nech sa sprocesuju
         $this->issuesRepository->update($issue, ['state' => IssuesRepository::STATE_NEW]);
 
+        if ($input->getOption('delete-source-after')) {
+            // processSourceFiles throw exceptions if import wasn't successful
+            // so if we are here, it's safe to remove source files
+            $output->writeln('Removing source files:');
+            foreach ($files as $filePath => $file) {
+                $output->write(" * <info>$filePath</info>");
+                $result = unlink($filePath);
+                if ($result) {
+                    $output->write("  <comment>OK</comment>\n");
+                } else {
+                    $output->write("  <error>Unable to delete file.</error>");
+                    Debugger::log("Cannot delete source issue file '{$filePath}'. Please remove it manually.", ILogger::ERROR);
+                }
+            }
+        }
+
         $output->writeln('');
         $output->writeln('Done');
         $output->writeln('');
@@ -165,7 +174,13 @@ class ImportCommand extends Command
     {
         // WARNING! - tento kod (velmi podovny) je v IssuesFormFactory, ak sa bude menit treba ja tam
         $filename = 'sources/issue-' . str_pad($issue->id, 5, '0', STR_PAD_LEFT) . '/' . md5(time() . $file->getBasename() . $filePath) . '.pdf';
-        $this->mountManager->write('issues://' . $filename, file_get_contents($filePath));
-        $this->issueSourceFilesRepository->add($issue, $filename, $file->getBasename(), $file->getSize(), 'application/pdf');
+        $result = $this->mountManager->write('issues://' . $filename, file_get_contents($filePath));
+        if (!$result) {
+            throw new \Exception("Unable to import issue file [{$filePath}] into issues file repository.");
+        }
+        $result = $this->issueSourceFilesRepository->add($issue, $filename, $file->getBasename(), $file->getSize(), 'application/pdf');
+        if ($result === null) {
+            throw new \Exception("Unable to add entry to issue [{$issue->id}] for file [{$filename}] into 'issue_source_files' table.");
+        }
     }
 }
