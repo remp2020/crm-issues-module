@@ -22,7 +22,7 @@ class IssuesAdminPresenter extends AdminPresenter
     /** @var  MagazinesRepository @inject */
     public $magazineRepository;
 
-    /** @var  @persistent */
+    /** @persistent */
     public $magazine;
 
     /**
