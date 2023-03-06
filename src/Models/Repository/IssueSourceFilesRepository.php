@@ -4,6 +4,7 @@ namespace Crm\IssuesModule\Repository;
 
 use DateTime;
 use Nette\Database\Table\ActiveRow;
+use Nette\Utils\Random;
 
 class IssueSourceFilesRepository extends IssueBaseRepository
 {
@@ -11,7 +12,7 @@ class IssueSourceFilesRepository extends IssueBaseRepository
 
     final public function add(ActiveRow $issue, $file, $originalName, $size, $mime)
     {
-        $identifier = md5(time() . rand(99999, 100000) . $originalName . $file . $size);
+        $identifier = Random::generate(16);
         $id = $this->insert([
             'identifier' => $identifier,
             'issue_id' => $issue->id,

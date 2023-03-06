@@ -8,6 +8,7 @@ use Crm\IssuesModule\Repository\IssuesRepository;
 use Crm\IssuesModule\Repository\MagazinesRepository;
 use League\Flysystem\MountManager;
 use Nette\Utils\DateTime;
+use Nette\Utils\Random;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -110,11 +111,11 @@ class ImportCommand extends Command
         $output->writeln('Found files:');
         foreach ($files as $filePath => $file) {
             $output->writeln(" * <info>{$filePath}</info> ({$file->getSize()}b)");
-            $md5Hash = hash_file('md5', $file->getRealPath());
+            $md5Hash = hash_file('sha256', $file->getRealPath());
             $hashString .= "{$filePath}|{$md5Hash}|";
         }
 
-        $checksum = md5($hashString);
+        $checksum = hash('sha256', $hashString);
 
         $actualIssue = $this->issuesRepository->findIssue($magazine, $date);
         if ($actualIssue) {
@@ -173,7 +174,7 @@ class ImportCommand extends Command
     private function processSourceFile($filePath, $file, $issue)
     {
         // WARNING! - tento kod (velmi podovny) je v IssuesFormFactory, ak sa bude menit treba ja tam
-        $filename = 'sources/issue-' . str_pad($issue->id, 5, '0', STR_PAD_LEFT) . '/' . md5(time() . $file->getBasename() . $filePath) . '.pdf';
+        $filename = 'sources/issue-' . str_pad($issue->id, 5, '0', STR_PAD_LEFT) . '/' . Random::generate() . '.pdf';
         $result = $this->mountManager->write('issues://' . $filename, file_get_contents($filePath));
         if (!$result) {
             throw new \Exception("Unable to import issue file [{$filePath}] into issues file repository.");

@@ -10,6 +10,7 @@ use League\Flysystem\MountManager;
 use Nette\Application\UI\Form;
 use Nette\Database\Table\ActiveRow;
 use Nette\Utils\DateTime;
+use Nette\Utils\Random;
 use Tomaj\Form\Renderer\BootstrapRenderer;
 
 class IssuesFormFactory
@@ -114,7 +115,7 @@ class IssuesFormFactory
             foreach ($values->original_files as $originalFile) {
                 if ($originalFile->isOk()) {
                     // WARNING! - tento kod (velmi podobny) je v ImportCommand (IssuesModule), ak sa bude menit treba ja tam
-                    $filename = 'sources/issue-' . str_pad($issue->id, 5, '0', STR_PAD_LEFT) . '/' . md5(time() . $originalFile->getName() . $originalFile->getTemporaryFile()) . '.pdf';
+                    $filename = 'sources/issue-' . str_pad($issue->id, 5, '0', STR_PAD_LEFT) . '/' . Random::generate() . '.pdf';
                     $this->mountManager->write('issues://' . $filename, $originalFile->getContents());
                     $this->issueSourceFilesRepository->add($issue, $filename, $originalFile->getName(), $originalFile->getSize(), $originalFile->getContentType());
                 }

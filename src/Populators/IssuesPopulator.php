@@ -4,6 +4,7 @@ namespace Crm\IssuesModule\Populator;
 
 use Crm\ApplicationModule\Populator\AbstractPopulator;
 use Crm\IssuesModule\Repository\IssuesRepository;
+use Nette\Utils\Random;
 
 class IssuesPopulator extends AbstractPopulator
 {
@@ -22,7 +23,7 @@ class IssuesPopulator extends AbstractPopulator
             $data = [
                 'issued_at' => $this->faker->dateTimeBetween('-2 years'),
                 'magazine_id' => $this->getId('magazines'),
-                'identifier' => md5($this->faker->unique()->sentence(10)),
+                'identifier' => Random::generate(16),
                 'name' => $this->faker->sentence,
                 'is_published' => $this->faker->boolean(80),
                 'state' => $state,
@@ -32,46 +33,46 @@ class IssuesPopulator extends AbstractPopulator
             ];
             $issue = $issues->insert($data);
 
-            $sourceFiles = rand(0, 20);
+            $sourceFiles = random_int(0, 20);
             for ($j = 0; $j < $sourceFiles; $j++) {
                 $issueSourceFiles->insert([
-                    'identifier' => md5($this->faker->unique()->sentence(10)),
+                    'identifier' => Random::generate(16),
                     'issue_id' => $issue->id,
-                    'file' => $this->faker->uuid . '.' . $this->faker->fileExtension,
-                    'original_name' => $this->faker->slug . '.' . $this->faker->fileExtension,
-                    'size' => rand(10, 10000),
-                    'mime' => $this->faker->mimeType,
+                    'file' => $this->faker->uuid . '.' . $this->faker->fileExtension(),
+                    'original_name' => $this->faker->slug . '.' . $this->faker->fileExtension(),
+                    'size' => random_int(10, 10000),
+                    'mime' => $this->faker->mimeType(),
                     'created_at' => $this->faker->dateTimeBetween('-2 years'),
                     'updated_at' => $this->faker->dateTimeBetween('-2 years'),
                 ]);
             }
 
-            $pages = rand(0, 20);
+            $pages = random_int(0, 20);
             for ($j = 0; $j < $pages; $j++) {
                 $issuePages->insert([
-                    'identifier' => md5($this->faker->unique()->sentence(10)),
+                    'identifier' => Random::generate(16),
                     'issue_id' => $issue->id,
                     'page' => $j,
-                    'file' => $this->faker->uuid . '.' . $this->faker->fileExtension,
-                    'size' => rand(10, 10000),
+                    'file' => $this->faker->uuid . '.' . $this->faker->fileExtension(),
+                    'size' => random_int(10, 10000),
                     'quality' => 'small',
-                    'width' => rand(100, 2000),
-                    'height' => rand(100, 2000),
-                    'mime' => $this->faker->mimeType,
+                    'width' => random_int(100, 2000),
+                    'height' => random_int(100, 2000),
+                    'mime' => $this->faker->mimeType(),
                     'orientation' => $this->getOrientation(),
                     'created_at' => $this->faker->dateTimeBetween('-2 years'),
                     'updated_at' => $this->faker->dateTimeBetween('-2 years'),
                 ]);
                 $issuePages->insert([
-                    'identifier' => md5($this->faker->unique()->sentence(10)),
+                    'identifier' => Random::generate(16),
                     'issue_id' => $issue->id,
                     'page' => $j,
-                    'file' => $this->faker->uuid . '.' . $this->faker->fileExtension,
-                    'size' => rand(10, 10000),
+                    'file' => $this->faker->uuid . '.' . $this->faker->fileExtension(),
+                    'size' => random_int(10, 10000),
                     'quality' => 'large',
-                    'width' => rand(100, 2000),
-                    'height' => rand(100, 2000),
-                    'mime' => $this->faker->mimeType,
+                    'width' => random_int(100, 2000),
+                    'height' => random_int(100, 2000),
+                    'mime' => $this->faker->mimeType(),
                     'orientation' => $this->getOrientation(),
                     'created_at' => $this->faker->dateTimeBetween('-2 years'),
                     'updated_at' => $this->faker->dateTimeBetween('-2 years'),

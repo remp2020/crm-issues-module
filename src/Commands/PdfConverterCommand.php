@@ -7,6 +7,7 @@ use Crm\IssuesModule\Pdf\ConverterError;
 use Crm\IssuesModule\Repository\IssuePagesRepository;
 use Crm\IssuesModule\Repository\IssuesRepository;
 use League\Flysystem\MountManager;
+use Nette\Utils\Random;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -39,7 +40,7 @@ class PdfConverterCommand extends Command
     protected function configure()
     {
         $this->setName('issues:converter')
-            ->setDescription('Convert pdf to images')
+            ->setDescription('Converts PDF to images. Use flock /tmp/issues_converter.lock to prevent multiple executions.')
         ;
     }
 
@@ -48,14 +49,6 @@ class PdfConverterCommand extends Command
         $output->writeln('');
         $output->writeln('<info>***** PDF CONVERTER *****</info>');
         $output->writeln('');
-
-        // skontrolujeme ci nebezi uz nejaky converter
-        $pids = false;
-        exec('ps uax | grep "issues:converter"', $pids);
-        if (count($pids) > 5) {
-            $output->writeln('Already running other converter');
-            return Command::FAILURE;
-        }
 
         $issues = $this->issuesRepository->getIssuesForConverting();
         $pageNumber = 0;
@@ -89,7 +82,7 @@ class PdfConverterCommand extends Command
                     if ($cover == null) {
                         $data = $this->converter->generateCover($pdfFile);
                         $file = $data['file'];
-                        $cover = $folder . '/cover_' . md5($issueSource->file . $pdfFile . microtime() . rand(1000, 10000)) . '.jpg';
+                        $cover = $folder . '/cover_' . Random::generate() . '.jpg';
                         $contents = file_get_contents($file);
                         $this->mountManager->write("issues://$cover", $contents);
                         unlink($file);
@@ -115,7 +108,7 @@ class PdfConverterCommand extends Command
 
                     $data = $smallImages[$i];
                     $page = $data['file'];
-                    $filename = 'small_' . md5($number . '-' . $page . microtime() . rand(1000, 10000)) . '.jpg';
+                    $filename = 'small_' . Random::generate() . '.jpg';
                     $contents = file_get_contents($page);
                     $this->mountManager->write("issues://$folder/$filename", $contents);
                     unlink($page);
@@ -123,7 +116,7 @@ class PdfConverterCommand extends Command
 
                     $data = $largeImages[$i];
                     $page = $data['file'];
-                    $filename = 'large_' . md5($number . '-' . $page . microtime() . rand(1000, 10000)) . '.jpg';
+                    $filename = 'large_' . Random::generate() . '.jpg';
                     $contents = file_get_contents($page);
                     $this->mountManager->write("issues://$folder/$filename", $contents);
                     unlink($page);

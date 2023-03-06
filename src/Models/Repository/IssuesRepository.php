@@ -7,6 +7,7 @@ use Crm\ApplicationModule\Models\ApplicationMountManager;
 use Nette\Database\Explorer;
 use Nette\Database\Table\ActiveRow;
 use Nette\Utils\DateTime;
+use Nette\Utils\Random;
 
 class IssuesRepository extends IssueBaseRepository
 {
@@ -47,7 +48,7 @@ class IssuesRepository extends IssueBaseRepository
         $state = self::STATE_NEW,
         $checksum = null
     ) {
-        $identifier = md5(time() . rand(99999, 100000) . $name);
+        $identifier = Random::generate(16);
         $id = $this->insert([
             'magazine_id' => $magazine->id,
             'identifier' => $identifier,
