@@ -6,7 +6,7 @@ use Crm\ApplicationModule\Models\ApplicationMountManager;
 use Crm\IssuesModule\Repository\IssueSourceFilesRepository;
 use Crm\IssuesModule\Repository\IssuesRepository;
 use Crm\IssuesModule\Repository\MagazinesRepository;
-use League\Flysystem\FileNotFoundException;
+use League\Flysystem\UnableToReadFile;
 use Nette\Utils\DateTime;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -99,7 +99,7 @@ class CoverFtpUploadCommand extends Command
         try {
             $this->mountManager->read('newsmuseum://' . $fileName);
             $output->writeln("Issue file {$fileName} already exists");
-        } catch (FileNotFoundException $e) {
+        } catch (UnableToReadFile $e) {
             $files = $this->issueSourceFilesRepository->getIssueFiles($issue);
             $cover = null;
             foreach ($files as $file) {

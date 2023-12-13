@@ -24,9 +24,13 @@ services:
 
 	filePatternProcessor: Crm\IssuesModule\Model\Issue\FilePatternProcessor
 
-	issuesFileSystem: League\Flysystem\Filesystem(League\Flysystem\Adapter\Local('%appDir%/../content/issues'))
-	issuesCoverNewsMuseumFileSystem: League\Flysystem\Filesystem(League\Flysystem\Adapter\Local('%appDir%/../content/newsmuseum'))
-	applicationMountManager:
+	issuesAdapter: League\Flysystem\Local\LocalFilesystemAdapter('%appDir%/../content/issues', null)
+	issuesFileSystem: League\Flysystem\Filesystem(@issuesAdapter)
+
+	issuesCoverNewsMuseumAdapter: League\Flysystem\Local\LocalFilesystemAdapter('%appDir%/../content/newsmuseum', null)
+	issuesCoverNewsMuseumFileSystem: League\Flysystem\Filesystem(@issuesCoverNewsMuseumAdapter)
+
+	mountManagerConfig:
 		setup:
 			- mountFilesystem('issues', @issuesFileSystem)
 			- mountFilesystem('newsmuseum', @issuesCoverNewsMuseumFileSystem)

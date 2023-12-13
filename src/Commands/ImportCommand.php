@@ -2,10 +2,12 @@
 
 namespace Crm\IssuesModule\Commands;
 
+use Crm\ApplicationModule\Models\ApplicationMountManager;
 use Crm\IssuesModule\Model\IFilePatternProcessor;
 use Crm\IssuesModule\Repository\IssueSourceFilesRepository;
 use Crm\IssuesModule\Repository\IssuesRepository;
 use Crm\IssuesModule\Repository\MagazinesRepository;
+use League\Flysystem\FilesystemException;
 use League\Flysystem\MountManager;
 use Nette\Utils\DateTime;
 use Nette\Utils\Random;
@@ -20,7 +22,7 @@ use Tracy\ILogger;
 class ImportCommand extends Command
 {
     public function __construct(
-        private MountManager $mountManager,
+        private ApplicationMountManager $mountManager,
         private IssuesRepository $issuesRepository,
         private IssueSourceFilesRepository $issueSourceFilesRepository,
         private MagazinesRepository $magazinesRepository,
@@ -175,10 +177,13 @@ class ImportCommand extends Command
     {
         // WARNING! - tento kod (velmi podovny) je v IssuesFormFactory, ak sa bude menit treba ja tam
         $filename = 'sources/issue-' . str_pad($issue->id, 5, '0', STR_PAD_LEFT) . '/' . Random::generate() . '.pdf';
-        $result = $this->mountManager->write('issues://' . $filename, file_get_contents($filePath));
-        if (!$result) {
+
+        try {
+            $this->mountManager->write('issues://' . $filename, file_get_contents($filePath));
+        } catch (FilesystemException) {
             throw new \Exception("Unable to import issue file [{$filePath}] into issues file repository.");
         }
+
         $result = $this->issueSourceFilesRepository->add($issue, $filename, $file->getBasename(), $file->getSize(), 'application/pdf');
         if ($result === null) {
             throw new \Exception("Unable to add entry to issue [{$issue->id}] for file [{$filename}] into 'issue_source_files' table.");

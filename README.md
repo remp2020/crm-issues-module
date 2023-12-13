@@ -14,7 +14,9 @@ You can use other buckets for uploads, but you need to define them in your confi
 services:	
 	# ...
 	# fileManager extension - example uploads
-	exampleIssuesFileSystem: League\Flysystem\Filesystem(League\Flysystem\Adapter\Local('%appDir%/../content/examples_issues'))
+	exampleIssuesAdapter: League\Flysystem\Local\LocalFilesystemAdapter('%appDir%/../content/examples_issues', null)
+	exampleIssuesFileSystem: League\Flysystem\Filesystem(@exampleIssuesAdapter)
+
 	applicationMountManager:
 		setup:
 			- mountFilesystem('exampleIssues', @exampleIssuesFileSystem)
