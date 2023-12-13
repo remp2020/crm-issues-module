@@ -24,10 +24,10 @@ services:
 
 	filePatternProcessor: Crm\IssuesModule\Model\Issue\FilePatternProcessor
 
-	issuesAdapter: League\Flysystem\Local\LocalFilesystemAdapter('%appDir%/../content/issues', null)
+	issuesAdapter: League\Flysystem\Local\LocalFilesystemAdapter('%appDir%/../content/issues')
 	issuesFileSystem: League\Flysystem\Filesystem(@issuesAdapter)
 
-	issuesCoverNewsMuseumAdapter: League\Flysystem\Local\LocalFilesystemAdapter('%appDir%/../content/newsmuseum', null)
+	issuesCoverNewsMuseumAdapter: League\Flysystem\Local\LocalFilesystemAdapter('%appDir%/../content/newsmuseum')
 	issuesCoverNewsMuseumFileSystem: League\Flysystem\Filesystem(@issuesCoverNewsMuseumAdapter)
 
 	mountManagerConfig:

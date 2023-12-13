@@ -4,10 +4,11 @@ namespace Crm\IssuesModule\Commands;
 
 use Crm\ApplicationModule\Commands\DecoratedCommandTrait;
 use ErrorException;
-use League\Flysystem\Adapter\Ftp;
-use League\Flysystem\Adapter\Local;
-use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
+use League\Flysystem\FilesystemException;
+use League\Flysystem\Ftp\FtpAdapter;
+use League\Flysystem\Ftp\FtpConnectionOptions;
+use League\Flysystem\Local\LocalFilesystemAdapter;
 use League\Flysystem\MountManager;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -54,7 +55,8 @@ class SyncFtpIssuesCommand extends Command
                 'path',
                 null,
                 InputOption::VALUE_OPTIONAL,
-                'Ftp root path'
+                'Ftp root path',
+                '',
             )
             ->addOption(
                 'delete-remote-after',
@@ -67,13 +69,14 @@ class SyncFtpIssuesCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $ftpAdapter = new Ftp([
-            'host' => $input->getOption('host'),
-            'username' => $input->getOption('username'),
-            'password' => $input->getOption('password'),
-            'root' => $input->getOption('path'),
-        ]);
-        $localAdapter = new Local($input->getOption('local-folder'));
+        $ftpAdapter = new FtpAdapter(new FtpConnectionOptions(
+            host: $input->getOption('host'),
+            root: $input->getOption('path'),
+            username: $input->getOption('username'),
+            password: $input->getOption('password'),
+        ));
+
+        $localAdapter = new LocalFilesystemAdapter($input->getOption('local-folder'));
 
         $ftp = new Filesystem($ftpAdapter);
         $local = new Filesystem($localAdapter);
@@ -83,7 +86,7 @@ class SyncFtpIssuesCommand extends Command
             'local' => $local,
         ]);
 
-        $contents = $manager->listContents('ftp://', true);
+        $contents = $manager->listContents('ftp://', true)->toArray();
 
         foreach ($contents as $entry) {
             if ($entry['type'] !== 'file') {
@@ -105,17 +108,15 @@ class SyncFtpIssuesCommand extends Command
             while (true) {
                 $output->writeln('Downloading <info>' . $entry['path'] . '</info>');
                 try {
-                    $result = $manager->put("local://{$entry['path']}", $manager->read("ftp://{$entry['path']}"));
-                    if ($result) {
-                        $output->writeln(' * File downloaded.');
+                    $manager->write("local://{$entry['path']}", $manager->read("ftp://{$entry['path']}"));
+                    $output->writeln(' * File downloaded.');
 
-                        // file is downloaded; delete from remote if flag is set
-                        if ($input->getOption('delete-remote-after')) {
-                            $this->deleteRemoteFile($manager, $entry['path'], $output);
-                        }
+                    // file is downloaded; delete from remote if flag is set
+                    if ($input->getOption('delete-remote-after')) {
+                        $this->deleteRemoteFile($manager, $entry['path'], $output);
                     }
                     break;
-                } catch (FileNotFoundException | ErrorException $exception) {
+                } catch (FilesystemException | ErrorException $exception) {
                     if ($retryCount >= self::MAX_RETRY_COUNT) {
                         Debugger::log("Cannot sync file '{$entry['type']}' due exception: {$exception->getMessage()}", ILogger::EXCEPTION);
                         break;
@@ -134,10 +135,10 @@ class SyncFtpIssuesCommand extends Command
 
     private function deleteRemoteFile(MountManager $mountManager, string $path, OutputInterface $output)
     {
-        $result = $mountManager->delete("ftp://{$path}");
-        if ($result) {
+        try {
+            $mountManager->delete("ftp://{$path}");
             $output->writeln(' * Remote file deleted.');
-        } else {
+        } catch (FilesystemException $e) {
             $output->writeln(' * Unable to delete remote file.');
             Debugger::log("Cannot delete remote file '{$path}'", ILogger::ERROR);
         }
