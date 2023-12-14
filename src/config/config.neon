@@ -27,10 +27,6 @@ services:
 	issuesAdapter: League\Flysystem\Local\LocalFilesystemAdapter('%appDir%/../content/issues')
 	issuesFileSystem: League\Flysystem\Filesystem(@issuesAdapter)
 
-	issuesCoverNewsMuseumAdapter: League\Flysystem\Local\LocalFilesystemAdapter('%appDir%/../content/newsmuseum')
-	issuesCoverNewsMuseumFileSystem: League\Flysystem\Filesystem(@issuesCoverNewsMuseumAdapter)
-
 	mountManagerConfig:
 		setup:
 			- mountFilesystem('issues', @issuesFileSystem)
-			- mountFilesystem('newsmuseum', @issuesCoverNewsMuseumFileSystem)
