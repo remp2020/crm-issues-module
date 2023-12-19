@@ -86,19 +86,26 @@ class SyncFtpIssuesCommand extends Command
             'local' => $local,
         ]);
 
-        $contents = $manager->listContents('ftp://', true)->toArray();
+        $contents = $manager->listContents('ftp://')->toArray();
+        $output->writeln(' * Found <comment>' . count($contents) . '</comment> files/directories.');
 
         foreach ($contents as $entry) {
-            if ($entry['type'] !== 'file') {
+            if (!$entry->isFile()) {
                 continue;
             }
 
-            if ($manager->has("local://{$entry['path']}") === true) {
-                $output->writeln('Already downloaded <info>' . $entry['path'] . '</info>');
+            $fileRemotePath = $entry->path();
+            $filename = str_replace('ftp://', '', $fileRemotePath);
+            $fileLocalPath = 'local://' . $filename;
+
+            $output->writeln("Found file <info>{$filename}</info>:");
+
+            if ($manager->has($fileLocalPath) === true) {
+                $output->writeln(' * Already downloaded.');
 
                 // file is downloaded; delete from remote if flag is set
                 if ($input->getOption('delete-remote-after')) {
-                    $this->deleteRemoteFile($manager, $entry['path'], $output);
+                    $this->deleteRemoteFile($manager, $fileRemotePath, $output);
                 }
                 continue;
             }
@@ -106,24 +113,26 @@ class SyncFtpIssuesCommand extends Command
             $retryCount = 0;
 
             while (true) {
-                $output->writeln('Downloading <info>' . $entry['path'] . '</info>');
+                $output->writeln('Downloading <info>' . $filename . '</info>');
                 try {
-                    $manager->write("local://{$entry['path']}", $manager->read("ftp://{$entry['path']}"));
+                    $manager->write($fileLocalPath, $manager->read($fileRemotePath));
                     $output->writeln(' * File downloaded.');
 
                     // file is downloaded; delete from remote if flag is set
                     if ($input->getOption('delete-remote-after')) {
-                        $this->deleteRemoteFile($manager, $entry['path'], $output);
+                        $this->deleteRemoteFile($manager, $fileRemotePath, $output);
                     }
                     break;
                 } catch (FilesystemException | ErrorException $exception) {
                     if ($retryCount >= self::MAX_RETRY_COUNT) {
-                        Debugger::log("Cannot sync file '{$entry['type']}' due exception: {$exception->getMessage()}", ILogger::EXCEPTION);
+                        $errorMsg = "Cannot sync file '{$filename}' due exception: {$exception->getMessage()}";
+                        Debugger::log($errorMsg, ILogger::EXCEPTION);
+                        $output->writeln(' * ' . $errorMsg);
                         break;
                     }
 
                     $retryCount++;
-                    $output->writeln("Retry to download <error>{$entry['path']}</error>, try: {$retryCount}");
+                    $output->writeln(" * Retry to download <error>{$filename}</error>, try: {$retryCount}");
                     sleep(5);
                 }
             }
@@ -133,14 +142,14 @@ class SyncFtpIssuesCommand extends Command
         return Command::SUCCESS;
     }
 
-    private function deleteRemoteFile(MountManager $mountManager, string $path, OutputInterface $output)
+    private function deleteRemoteFile(MountManager $mountManager, string $remotePath, OutputInterface $output)
     {
         try {
-            $mountManager->delete("ftp://{$path}");
+            $mountManager->delete($remotePath);
             $output->writeln(' * Remote file deleted.');
         } catch (FilesystemException $e) {
             $output->writeln(' * Unable to delete remote file.');
-            Debugger::log("Cannot delete remote file '{$path}'", ILogger::ERROR);
+            Debugger::log("Cannot delete remote file '{$remotePath}'", ILogger::ERROR);
         }
     }
 }
