@@ -7,22 +7,24 @@ use Crm\ApplicationModule\Components\PreviousNextPaginator;
 use Crm\IssuesModule\Forms\IssuesFormFactory;
 use Crm\IssuesModule\Repository\IssuesRepository;
 use Crm\IssuesModule\Repository\MagazinesRepository;
+use Nette\Application\Attributes\Persistent;
 use Nette\Application\UI\Form;
+use Nette\DI\Attributes\Inject;
 use Nette\Database\Table\ActiveRow;
 use Tomaj\Form\Renderer\BootstrapInlineRenderer;
 
 class IssuesAdminPresenter extends AdminPresenter
 {
-    /** @var  IssuesFormFactory @inject */
-    public $issuesFormFactory;
+    #[Inject]
+    public IssuesFormFactory $issuesFormFactory;
 
-    /** @var  IssuesRepository @inject */
-    public $issuesRepository;
+    #[Inject]
+    public IssuesRepository $issuesRepository;
 
-    /** @var  MagazinesRepository @inject */
-    public $magazineRepository;
+    #[Inject]
+    public MagazinesRepository $magazineRepository;
 
-    /** @persistent */
+    #[Persistent]
     public $magazine;
 
     /**

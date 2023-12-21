@@ -5,15 +5,16 @@ namespace Crm\IssuesModule\Presenters;
 use Crm\AdminModule\Presenters\AdminPresenter;
 use Crm\IssuesModule\Forms\MagazineFormFactory;
 use Crm\IssuesModule\Repository\MagazinesRepository;
+use Nette\DI\Attributes\Inject;
 use Nette\Database\Table\ActiveRow;
 
 class MagazinesAdminPresenter extends AdminPresenter
 {
-    /** @var  MagazineFormFactory @inject */
-    public $magazineFormFactory;
+    #[Inject]
+    public MagazineFormFactory $magazineFormFactory;
 
-    /** @var  MagazinesRepository @inject */
-    public $magazinesRepository;
+    #[Inject]
+    public MagazinesRepository $magazinesRepository;
 
     /**
      * @admin-access-level read

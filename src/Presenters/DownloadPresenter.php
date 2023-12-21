@@ -12,23 +12,24 @@ use Crm\UsersModule\Repository\UsersRepository;
 use League\Flysystem\MountManager;
 use Nette\Application\BadRequestException;
 use Nette\Application\ForbiddenRequestException;
+use Nette\DI\Attributes\Inject;
 
 class DownloadPresenter extends FrontendPresenter
 {
-    /** @var  IssueSourceFilesRepository @inject */
-    public $issueSourceFilesRepository;
+    #[Inject]
+    public IssueSourceFilesRepository $issueSourceFilesRepository;
 
-    /** @var  IssuePagesRepository @inject */
-    public $issuePagesRepository;
+    #[Inject]
+    public IssuePagesRepository $issuePagesRepository;
 
-    /** @var  MountManager @inject */
-    public $mountManager;
+    #[Inject]
+    public MountManager $mountManager;
 
-    /** @var  IssuesRepository @inject */
-    public $issuesRepository;
+    #[Inject]
+    public IssuesRepository $issuesRepository;
 
-    /** @var AccessManager @inject */
-    public $accessManager;
+    #[Inject]
+    public AccessManager $accessManager;
 
     public function renderSourceFile($id)
     {
