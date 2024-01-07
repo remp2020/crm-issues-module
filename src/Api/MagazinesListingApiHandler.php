@@ -2,7 +2,7 @@
 
 namespace Crm\IssuesModule\Api;
 
-use Crm\ApiModule\Api\ApiHandler;
+use Crm\ApiModule\Models\Api\ApiHandler;
 use Crm\IssuesModule\Repository\MagazinesRepository;
 use Nette\Application\LinkGenerator;
 use Nette\Http\Response;
