@@ -1,6 +1,6 @@
 <?php
 
-namespace Crm\IssuesModule\Repository;
+namespace Crm\IssuesModule\Repositories;
 
 use DateTime;
 use Nette\Database\Table\ActiveRow;

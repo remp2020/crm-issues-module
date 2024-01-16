@@ -1,6 +1,6 @@
 <?php
 
-namespace Crm\IssuesModule\Repository;
+namespace Crm\IssuesModule\Repositories;
 
 use Crm\ApplicationModule\Cache\CacheRepository;
 use Crm\ApplicationModule\Models\ApplicationMountManager;

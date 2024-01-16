@@ -1,6 +1,6 @@
 <?php
 
-namespace Crm\IssuesModule\Components;
+namespace Crm\IssuesModule\Components\SubscriptionTypesWithMagazinesWidget;
 
 use Crm\ApplicationModule\Widget\BaseLazyWidget;
 use Crm\ApplicationModule\Widget\LazyWidgetManager;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Crm\IssuesModule\Populator;
+namespace Crm\IssuesModule\Populators;
 
 use Crm\ApplicationModule\Populator\AbstractPopulator;
 

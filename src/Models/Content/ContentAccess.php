@@ -1,6 +1,6 @@
 <?php
 
-namespace Crm\IssuesModule\Model;
+namespace Crm\IssuesModule\Models\Content;
 
 class ContentAccess
 {

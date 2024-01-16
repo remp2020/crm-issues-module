@@ -1,6 +1,6 @@
 <?php
 
-namespace Crm\IssuesModule\Pdf;
+namespace Crm\IssuesModule\Models\Pdf;
 
 use Imagick;
 
