@@ -141,7 +141,7 @@ class IssuesRepository extends IssueBaseRepository
             return (int) $this->cacheRepository->loadAndUpdate(
                 'issues_count',
                 $callable,
-                \Nette\Utils\DateTime::from(CacheRepository::REFRESH_TIME_5_MINUTES),
+                DateTime::from(CacheRepository::REFRESH_TIME_5_MINUTES),
                 $forceCacheUpdate
             );
         }

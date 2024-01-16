@@ -10,6 +10,11 @@ use Crm\ApplicationModule\CrmModule;
 use Crm\ApplicationModule\Menu\MenuContainerInterface;
 use Crm\ApplicationModule\Menu\MenuItem;
 use Crm\ApplicationModule\Widget\LazyWidgetManagerInterface;
+use Crm\IssuesModule\Commands\CoverFtpUploadCommand;
+use Crm\IssuesModule\Commands\ImportCommand;
+use Crm\IssuesModule\Commands\PdfConverterCommand;
+use Crm\IssuesModule\Commands\SyncFtpIssuesCommand;
+use Crm\IssuesModule\Components\SubscriptionTypesWithMagazinesWidget;
 
 class IssuesModule extends CrmModule
 {
@@ -41,10 +46,10 @@ class IssuesModule extends CrmModule
 
     public function registerCommands(CommandsContainerInterface $commandsContainer)
     {
-        $commandsContainer->registerCommand($this->getInstance(\Crm\IssuesModule\Commands\PdfConverterCommand::class));
-        $commandsContainer->registerCommand($this->getInstance(\Crm\IssuesModule\Commands\ImportCommand::class));
-        $commandsContainer->registerCommand($this->getInstance(\Crm\IssuesModule\Commands\CoverFtpUploadCommand::class));
-        $commandsContainer->registerCommand($this->getInstance(\Crm\IssuesModule\Commands\SyncFtpIssuesCommand::class));
+        $commandsContainer->registerCommand($this->getInstance(PdfConverterCommand::class));
+        $commandsContainer->registerCommand($this->getInstance(ImportCommand::class));
+        $commandsContainer->registerCommand($this->getInstance(CoverFtpUploadCommand::class));
+        $commandsContainer->registerCommand($this->getInstance(SyncFtpIssuesCommand::class));
     }
 
     public function registerApiCalls(ApiRoutersContainerInterface $apiRoutersContainer)
@@ -67,7 +72,7 @@ class IssuesModule extends CrmModule
     {
         $widgetManager->registerWidget(
             'subscription_types_admin.show.middle',
-            \Crm\IssuesModule\Components\SubscriptionTypesWithMagazinesWidget::class,
+            SubscriptionTypesWithMagazinesWidget::class,
             100
         );
     }
