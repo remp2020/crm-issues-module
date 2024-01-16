@@ -2,7 +2,6 @@
 
 namespace Crm\IssuesModule\Models\FilePatternProcessor;
 
-use Crm\IssuesModule\Model\IFilePatternProcessor;
 use Nette\Utils\Finder;
 
 class FilePatternProcessor implements IFilePatternProcessor

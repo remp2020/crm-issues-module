@@ -3,9 +3,9 @@
 namespace Crm\IssuesModule\Forms;
 
 use Contributte\Translation\Translator;
-use Crm\IssuesModule\Repository\IssueSourceFilesRepository;
-use Crm\IssuesModule\Repository\IssuesRepository;
-use Crm\IssuesModule\Repository\MagazinesRepository;
+use Crm\IssuesModule\Repositories\IssueSourceFilesRepository;
+use Crm\IssuesModule\Repositories\IssuesRepository;
+use Crm\IssuesModule\Repositories\MagazinesRepository;
 use League\Flysystem\MountManager;
 use Nette\Application\UI\Form;
 use Nette\Database\Table\ActiveRow;
@@ -15,7 +15,7 @@ use Tomaj\Form\Renderer\BootstrapRenderer;
 
 class IssuesFormFactory
 {
-    /** @var  IssuesRepository */
+    /** @var IssuesRepository */
     private $issuesRepository;
 
     /** @var IssueSourceFilesRepository */

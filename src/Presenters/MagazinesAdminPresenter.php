@@ -4,7 +4,7 @@ namespace Crm\IssuesModule\Presenters;
 
 use Crm\AdminModule\Presenters\AdminPresenter;
 use Crm\IssuesModule\Forms\MagazineFormFactory;
-use Crm\IssuesModule\Repository\MagazinesRepository;
+use Crm\IssuesModule\Repositories\MagazinesRepository;
 use Nette\DI\Attributes\Inject;
 use Nette\Database\Table\ActiveRow;
 

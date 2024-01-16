@@ -3,7 +3,7 @@
 namespace Crm\IssuesModule\Populators;
 
 use Crm\ApplicationModule\Populator\AbstractPopulator;
-use Crm\IssuesModule\Repository\IssuesRepository;
+use Crm\IssuesModule\Repositories\IssuesRepository;
 use Nette\Utils\Random;
 
 class IssuesPopulator extends AbstractPopulator

@@ -4,8 +4,8 @@ namespace Crm\IssuesModule\Components\SubscriptionTypesWithMagazinesWidget;
 
 use Crm\ApplicationModule\Widget\BaseLazyWidget;
 use Crm\ApplicationModule\Widget\LazyWidgetManager;
-use Crm\IssuesModule\Repository\MagazinesRepository;
-use Crm\IssuesModule\Repository\SubscriptionTypeMagazinesRepository;
+use Crm\IssuesModule\Repositories\MagazinesRepository;
+use Crm\IssuesModule\Repositories\SubscriptionTypeMagazinesRepository;
 use Crm\SubscriptionsModule\Repository\SubscriptionTypesRepository;
 use Nette\Application\UI\Form;
 use Nette\Localization\Translator;

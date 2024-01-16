@@ -3,10 +3,10 @@
 namespace Crm\IssuesModule\Commands;
 
 use Crm\ApplicationModule\Models\ApplicationMountManager;
-use Crm\IssuesModule\Model\IFilePatternProcessor;
-use Crm\IssuesModule\Repository\IssueSourceFilesRepository;
-use Crm\IssuesModule\Repository\IssuesRepository;
-use Crm\IssuesModule\Repository\MagazinesRepository;
+use Crm\IssuesModule\Models\FilePatternProcessor\IFilePatternProcessor;
+use Crm\IssuesModule\Repositories\IssueSourceFilesRepository;
+use Crm\IssuesModule\Repositories\IssuesRepository;
+use Crm\IssuesModule\Repositories\MagazinesRepository;
 use League\Flysystem\FilesystemException;
 use Nette\Utils\DateTime;
 use Nette\Utils\Random;

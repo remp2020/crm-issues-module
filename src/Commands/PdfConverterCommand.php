@@ -2,10 +2,10 @@
 
 namespace Crm\IssuesModule\Commands;
 
-use Crm\IssuesModule\Pdf\Converter;
-use Crm\IssuesModule\Pdf\ConverterError;
-use Crm\IssuesModule\Repository\IssuePagesRepository;
-use Crm\IssuesModule\Repository\IssuesRepository;
+use Crm\IssuesModule\Models\Pdf\Converter;
+use Crm\IssuesModule\Models\Pdf\ConverterError;
+use Crm\IssuesModule\Repositories\IssuePagesRepository;
+use Crm\IssuesModule\Repositories\IssuesRepository;
 use League\Flysystem\MountManager;
 use Nette\Utils\Random;
 use Symfony\Component\Console\Command\Command;

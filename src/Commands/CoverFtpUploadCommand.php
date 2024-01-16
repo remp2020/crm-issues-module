@@ -3,9 +3,9 @@
 namespace Crm\IssuesModule\Commands;
 
 use Crm\ApplicationModule\Models\ApplicationMountManager;
-use Crm\IssuesModule\Repository\IssueSourceFilesRepository;
-use Crm\IssuesModule\Repository\IssuesRepository;
-use Crm\IssuesModule\Repository\MagazinesRepository;
+use Crm\IssuesModule\Repositories\IssueSourceFilesRepository;
+use Crm\IssuesModule\Repositories\IssuesRepository;
+use Crm\IssuesModule\Repositories\MagazinesRepository;
 use League\Flysystem\UnableToReadFile;
 use Nette\Utils\DateTime;
 use Symfony\Component\Console\Command\Command;

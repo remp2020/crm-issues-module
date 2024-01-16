@@ -3,11 +3,11 @@ services:
 		setup:
 			- addModule(Crm\IssuesModule\IssuesModule())
 
-	issuesRepository: Crm\IssuesModule\Repository\IssuesRepository
-	issuePagesRepository: Crm\IssuesModule\Repository\IssuePagesRepository
-	issueSourceFilesRepository: Crm\IssuesModule\Repository\IssueSourceFilesRepository
-	magazinesRepository: Crm\IssuesModule\Repository\MagazinesRepository
-	subscriptionTypeMagazinesRepository: Crm\IssuesModule\Repository\SubscriptionTypeMagazinesRepository
+	issuesRepository: Crm\IssuesModule\Repositories\IssuesRepository
+	issuePagesRepository: Crm\IssuesModule\Repositories\IssuePagesRepository
+	issueSourceFilesRepository: Crm\IssuesModule\Repositories\IssueSourceFilesRepository
+	magazinesRepository: Crm\IssuesModule\Repositories\MagazinesRepository
+	subscriptionTypeMagazinesRepository: Crm\IssuesModule\Repositories\SubscriptionTypeMagazinesRepository
 
 	- Crm\IssuesModule\Api\IssuesDetailApiHandler
 	- Crm\IssuesModule\Api\IssuesListingApiHandler
@@ -17,12 +17,12 @@ services:
 	- Crm\IssuesModule\Commands\ImportCommand
 	- Crm\IssuesModule\Commands\PdfConverterCommand
 	- Crm\IssuesModule\Commands\SyncFtpIssuesCommand
-	- Crm\IssuesModule\Components\SubscriptionTypesWithMagazinesWidget
+	- Crm\IssuesModule\Components\SubscriptionTypesWithMagazinesWidget\SubscriptionTypesWithMagazinesWidget
 	- Crm\IssuesModule\Forms\IssuesFormFactory
 	- Crm\IssuesModule\Forms\MagazineFormFactory
-	- Crm\IssuesModule\Pdf\Converter
+	- Crm\IssuesModule\Models\Pdf\Converter
 
-	filePatternProcessor: Crm\IssuesModule\Model\Issue\FilePatternProcessor
+	filePatternProcessor: Crm\IssuesModule\Models\FilePatternProcessor\FilePatternProcessor
 
 	issuesAdapter: League\Flysystem\Local\LocalFilesystemAdapter('%appDir%/../content/issues')
 	issuesFileSystem: League\Flysystem\Filesystem(@issuesAdapter)

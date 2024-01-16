@@ -4,10 +4,10 @@ namespace Crm\IssuesModule\Presenters;
 
 use Crm\ApplicationModule\Access\AccessManager;
 use Crm\ApplicationModule\Presenters\FrontendPresenter;
-use Crm\IssuesModule\Model\ContentAccess;
-use Crm\IssuesModule\Repository\IssuePagesRepository;
-use Crm\IssuesModule\Repository\IssueSourceFilesRepository;
-use Crm\IssuesModule\Repository\IssuesRepository;
+use Crm\IssuesModule\Models\Content\ContentAccess;
+use Crm\IssuesModule\Repositories\IssuePagesRepository;
+use Crm\IssuesModule\Repositories\IssueSourceFilesRepository;
+use Crm\IssuesModule\Repositories\IssuesRepository;
 use Crm\UsersModule\Repository\UsersRepository;
 use League\Flysystem\MountManager;
 use Nette\Application\BadRequestException;

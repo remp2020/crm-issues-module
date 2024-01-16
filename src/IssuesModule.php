@@ -14,7 +14,7 @@ use Crm\IssuesModule\Commands\CoverFtpUploadCommand;
 use Crm\IssuesModule\Commands\ImportCommand;
 use Crm\IssuesModule\Commands\PdfConverterCommand;
 use Crm\IssuesModule\Commands\SyncFtpIssuesCommand;
-use Crm\IssuesModule\Components\SubscriptionTypesWithMagazinesWidget;
+use Crm\IssuesModule\Components\SubscriptionTypesWithMagazinesWidget\SubscriptionTypesWithMagazinesWidget;
 
 class IssuesModule extends CrmModule
 {

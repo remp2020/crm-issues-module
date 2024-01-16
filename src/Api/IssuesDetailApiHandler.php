@@ -5,7 +5,7 @@ namespace Crm\IssuesModule\Api;
 use Crm\ApiModule\Models\Api\ApiHandler;
 use Crm\ApiModule\Models\Params\InputParam;
 use Crm\ApiModule\Models\Params\ParamsProcessor;
-use Crm\IssuesModule\Repository\IssuesRepository;
+use Crm\IssuesModule\Repositories\IssuesRepository;
 use Nette\Application\LinkGenerator;
 use Nette\Http\Response;
 use Tomaj\NetteApi\Response\JsonApiResponse;
