@@ -8,7 +8,7 @@ use Crm\IssuesModule\Models\Content\ContentAccess;
 use Crm\IssuesModule\Repositories\IssuePagesRepository;
 use Crm\IssuesModule\Repositories\IssueSourceFilesRepository;
 use Crm\IssuesModule\Repositories\IssuesRepository;
-use Crm\UsersModule\Repository\UsersRepository;
+use Crm\UsersModule\Repositories\UsersRepository;
 use League\Flysystem\MountManager;
 use Nette\Application\BadRequestException;
 use Nette\Application\ForbiddenRequestException;
