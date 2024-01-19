@@ -2,7 +2,7 @@
 
 namespace Crm\IssuesModule\Commands;
 
-use Crm\ApplicationModule\Models\ApplicationMountManager;
+use Crm\ApplicationModule\Application\Managers\ApplicationMountManager;
 use Crm\IssuesModule\Repositories\IssueSourceFilesRepository;
 use Crm\IssuesModule\Repositories\IssuesRepository;
 use Crm\IssuesModule\Repositories\MagazinesRepository;

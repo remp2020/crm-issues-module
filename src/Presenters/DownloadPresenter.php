@@ -2,7 +2,7 @@
 
 namespace Crm\IssuesModule\Presenters;
 
-use Crm\ApplicationModule\Access\AccessManager;
+use Crm\ApplicationModule\Models\Access\AccessManager;
 use Crm\ApplicationModule\Presenters\FrontendPresenter;
 use Crm\IssuesModule\Models\Content\ContentAccess;
 use Crm\IssuesModule\Repositories\IssuePagesRepository;

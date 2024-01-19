@@ -3,7 +3,7 @@
 namespace Crm\IssuesModule\Presenters;
 
 use Crm\AdminModule\Presenters\AdminPresenter;
-use Crm\ApplicationModule\Components\PreviousNextPaginator;
+use Crm\ApplicationModule\Components\PreviousNextPaginator\PreviousNextPaginator;
 use Crm\IssuesModule\Forms\IssuesFormFactory;
 use Crm\IssuesModule\Repositories\IssuesRepository;
 use Crm\IssuesModule\Repositories\MagazinesRepository;

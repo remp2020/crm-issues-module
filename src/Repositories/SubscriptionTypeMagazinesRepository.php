@@ -2,7 +2,7 @@
 
 namespace Crm\IssuesModule\Repositories;
 
-use Crm\ApplicationModule\Repository;
+use Crm\ApplicationModule\Models\Database\Repository;
 
 class SubscriptionTypeMagazinesRepository extends Repository
 {

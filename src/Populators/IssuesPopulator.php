@@ -2,7 +2,7 @@
 
 namespace Crm\IssuesModule\Populators;
 
-use Crm\ApplicationModule\Populator\AbstractPopulator;
+use Crm\ApplicationModule\Populators\AbstractPopulator;
 use Crm\IssuesModule\Repositories\IssuesRepository;
 use Nette\Utils\Random;
 

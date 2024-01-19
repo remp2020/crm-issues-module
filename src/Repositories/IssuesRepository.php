@@ -2,8 +2,8 @@
 
 namespace Crm\IssuesModule\Repositories;
 
-use Crm\ApplicationModule\Cache\CacheRepository;
-use Crm\ApplicationModule\Models\ApplicationMountManager;
+use Crm\ApplicationModule\Application\Managers\ApplicationMountManager;
+use Crm\ApplicationModule\Repositories\CacheRepository;
 use Nette\Database\Explorer;
 use Nette\Database\Table\ActiveRow;
 use Nette\Utils\DateTime;

@@ -2,7 +2,7 @@
 
 namespace Crm\IssuesModule\Populators;
 
-use Crm\ApplicationModule\Populator\AbstractPopulator;
+use Crm\ApplicationModule\Populators\AbstractPopulator;
 
 class MagazinesPopulator extends AbstractPopulator
 {

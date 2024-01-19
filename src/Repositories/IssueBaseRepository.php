@@ -2,8 +2,8 @@
 
 namespace Crm\IssuesModule\Repositories;
 
-use Crm\ApplicationModule\Models\ApplicationMountManager;
-use Crm\ApplicationModule\Repository;
+use Crm\ApplicationModule\Application\Managers\ApplicationMountManager;
+use Crm\ApplicationModule\Models\Database\Repository;
 use Nette\Caching\Storage;
 use Nette\Database\Explorer;
 
