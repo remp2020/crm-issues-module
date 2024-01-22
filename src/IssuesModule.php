@@ -3,6 +3,7 @@
 namespace Crm\IssuesModule;
 
 use Crm\ApiModule\Models\Api\ApiRoutersContainerInterface;
+use Crm\ApiModule\Models\Authorization\NoAuthorization;
 use Crm\ApiModule\Models\Router\ApiIdentifier;
 use Crm\ApiModule\Models\Router\ApiRoute;
 use Crm\ApplicationModule\Application\CommandsContainerInterface;
@@ -10,6 +11,10 @@ use Crm\ApplicationModule\CrmModule;
 use Crm\ApplicationModule\Models\Menu\MenuContainerInterface;
 use Crm\ApplicationModule\Models\Menu\MenuItem;
 use Crm\ApplicationModule\Models\Widget\LazyWidgetManagerInterface;
+use Crm\IssuesModule\Api\IssuesDetailApiHandler;
+use Crm\IssuesModule\Api\IssuesListingApiHandler;
+use Crm\IssuesModule\Api\MagazineOverviewApiHandler;
+use Crm\IssuesModule\Api\MagazinesListingApiHandler;
 use Crm\IssuesModule\Commands\CoverFtpUploadCommand;
 use Crm\IssuesModule\Commands\ImportCommand;
 use Crm\IssuesModule\Commands\PdfConverterCommand;
@@ -55,16 +60,32 @@ class IssuesModule extends CrmModule
     public function registerApiCalls(ApiRoutersContainerInterface $apiRoutersContainer)
     {
         $apiRoutersContainer->attachRouter(
-            new ApiRoute(new ApiIdentifier('1', 'magazines', 'list'), 'Crm\IssuesModule\Api\MagazinesListingApiHandler', 'Crm\ApiModule\Authorization\NoAuthorization')
+            new ApiRoute(
+                new ApiIdentifier('1', 'magazines', 'list'),
+                MagazinesListingApiHandler::class,
+                NoAuthorization::class,
+            ),
         );
         $apiRoutersContainer->attachRouter(
-            new ApiRoute(new ApiIdentifier('1', 'magazine', 'overview'), 'Crm\IssuesModule\Api\MagazineOverviewApiHandler', 'Crm\ApiModule\Authorization\NoAuthorization')
+            new ApiRoute(
+                new ApiIdentifier('1', 'magazine', 'overview'),
+                MagazineOverviewApiHandler::class,
+                NoAuthorization::class,
+            ),
         );
         $apiRoutersContainer->attachRouter(
-            new ApiRoute(new ApiIdentifier('1', 'issues', 'list'), 'Crm\IssuesModule\Api\IssuesListingApiHandler', 'Crm\ApiModule\Authorization\NoAuthorization')
+            new ApiRoute(
+                new ApiIdentifier('1', 'issues', 'list'),
+                IssuesListingApiHandler::class,
+                NoAuthorization::class,
+            ),
         );
         $apiRoutersContainer->attachRouter(
-            new ApiRoute(new ApiIdentifier('1', 'issues', 'detail'), 'Crm\IssuesModule\Api\IssuesDetailApiHandler', 'Crm\ApiModule\Authorization\NoAuthorization')
+            new ApiRoute(
+                new ApiIdentifier('1', 'issues', 'detail'),
+                IssuesDetailApiHandler::class,
+                NoAuthorization::class,
+            ),
         );
     }
 
