@@ -3,6 +3,7 @@
 namespace Crm\IssuesModule\Repositories;
 
 use Crm\ApplicationModule\Application\Managers\ApplicationMountManager;
+use Crm\ApplicationModule\Repositories\AuditLogRepository;
 use Crm\ApplicationModule\Repositories\CacheRepository;
 use Nette\Database\Explorer;
 use Nette\Database\Table\ActiveRow;
@@ -13,31 +14,23 @@ class IssuesRepository extends IssueBaseRepository
 {
     protected $tableName = 'issues';
 
+    protected $auditLogExcluded = ['updated_at'];
+
     const STATE_NEW = 'new';
     const STATE_ERROR = 'error';
     const STATE_OK = 'ok';
     const STATE_PROCESSING = 'processing';
 
-    /** @var IssueSourceFilesRepository  */
-    private $issueSourceFilesRepository;
-
-    /** @var IssuePagesRepository  */
-    private $issuePagesRepository;
-
-    /** @var CacheRepository */
-    private $cacheRepository;
-
     public function __construct(
         Explorer $database,
         ApplicationMountManager $mountManager,
-        IssueSourceFilesRepository $issueSourceFilesRepository,
-        IssuePagesRepository $issuePagesRepository,
-        CacheRepository $cacheRepository
+        private IssueSourceFilesRepository $issueSourceFilesRepository,
+        private IssuePagesRepository $issuePagesRepository,
+        private CacheRepository $cacheRepository,
+        AuditLogRepository $auditLogRepository,
     ) {
-        parent::__construct($database, $mountManager);
-        $this->issueSourceFilesRepository = $issueSourceFilesRepository;
-        $this->issuePagesRepository = $issuePagesRepository;
-        $this->cacheRepository = $cacheRepository;
+        parent::__construct($database, $mountManager, null);
+        $this->auditLogRepository = $auditLogRepository;
     }
 
     final public function add(

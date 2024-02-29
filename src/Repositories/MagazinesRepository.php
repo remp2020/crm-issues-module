@@ -3,6 +3,9 @@
 namespace Crm\IssuesModule\Repositories;
 
 use Crm\ApplicationModule\Models\Database\Repository;
+use Crm\ApplicationModule\Repositories\AuditLogRepository;
+use Nette\Caching\Storage;
+use Nette\Database\Explorer;
 use Nette\Database\Table\ActiveRow;
 use Nette\Database\Table\Selection;
 use Nette\Utils\DateTime;
@@ -10,6 +13,17 @@ use Nette\Utils\DateTime;
 class MagazinesRepository extends Repository
 {
     protected $tableName = 'magazines';
+
+    protected $auditLogExcluded = ['updated_at'];
+
+    public function __construct(
+        Explorer $database,
+        Storage $cacheStorage = null,
+        AuditLogRepository $auditLogRepository,
+    ) {
+        parent::__construct($database, $cacheStorage);
+        $this->auditLogRepository = $auditLogRepository;
+    }
 
     /**
      * @return Selection
