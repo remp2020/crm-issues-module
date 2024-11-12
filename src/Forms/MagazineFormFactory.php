@@ -16,8 +16,6 @@ class MagazineFormFactory
     /** @var MagazinesRepository */
     private $magazinesRepository;
 
-    private $magazine;
-
     /* callback function */
     public $onUpdate;
 
@@ -35,7 +33,6 @@ class MagazineFormFactory
      */
     public function create(ActiveRow $magazine = null)
     {
-        $this->magazine = $magazine;
         $form = new Form;
 
         $form->setTranslator($this->translator);
