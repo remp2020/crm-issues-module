@@ -15,7 +15,6 @@ abstract class IssueBaseRepository extends Repository
     public function __construct(Explorer $database, ApplicationMountManager $mountManager, Storage $cacheStorage = null)
     {
         parent::__construct($database, $cacheStorage);
-        $this->database = $database;
         $this->mountManager = $mountManager;
     }
 
