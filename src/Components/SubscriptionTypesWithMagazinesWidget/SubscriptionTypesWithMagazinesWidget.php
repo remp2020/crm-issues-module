@@ -4,10 +4,10 @@ namespace Crm\IssuesModule\Components\SubscriptionTypesWithMagazinesWidget;
 
 use Crm\ApplicationModule\Models\Widget\BaseLazyWidget;
 use Crm\ApplicationModule\Models\Widget\LazyWidgetManager;
+use Crm\ApplicationModule\UI\Form;
 use Crm\IssuesModule\Repositories\MagazinesRepository;
 use Crm\IssuesModule\Repositories\SubscriptionTypeMagazinesRepository;
 use Crm\SubscriptionsModule\Repositories\SubscriptionTypesRepository;
-use Nette\Application\UI\Form;
 use Nette\Localization\Translator;
 use Tomaj\Form\Renderer\BootstrapRenderer;
 

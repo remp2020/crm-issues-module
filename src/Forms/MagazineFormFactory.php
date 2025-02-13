@@ -3,8 +3,8 @@
 namespace Crm\IssuesModule\Forms;
 
 use Contributte\Translation\Translator;
+use Crm\ApplicationModule\UI\Form;
 use Crm\IssuesModule\Repositories\MagazinesRepository;
-use Nette\Application\UI\Form;
 use Nette\Database\Table\ActiveRow;
 use Tomaj\Form\Renderer\BootstrapRenderer;
 

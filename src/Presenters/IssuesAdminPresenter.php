@@ -4,11 +4,11 @@ namespace Crm\IssuesModule\Presenters;
 
 use Crm\AdminModule\Presenters\AdminPresenter;
 use Crm\ApplicationModule\Components\PreviousNextPaginator\PreviousNextPaginator;
+use Crm\ApplicationModule\UI\Form;
 use Crm\IssuesModule\Forms\IssuesFormFactory;
 use Crm\IssuesModule\Repositories\IssuesRepository;
 use Crm\IssuesModule\Repositories\MagazinesRepository;
 use Nette\Application\Attributes\Persistent;
-use Nette\Application\UI\Form;
 use Nette\DI\Attributes\Inject;
 use Nette\Database\Table\ActiveRow;
 use Tomaj\Form\Renderer\BootstrapInlineRenderer;
