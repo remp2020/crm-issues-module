@@ -4,7 +4,6 @@ namespace Crm\IssuesModule\Api;
 
 use Crm\ApiModule\Models\Api\ApiHandler;
 use Crm\ApiModule\Models\Params\InputParam;
-use Crm\ApiModule\Models\Params\ParamsProcessor;
 use Crm\IssuesModule\Repositories\IssuesRepository;
 use Nette\Application\LinkGenerator;
 use Nette\Http\Response;
@@ -32,8 +31,6 @@ class IssuesDetailApiHandler extends ApiHandler
 
     public function handle(array $params): ResponseInterface
     {
-        $paramsProcessor = new ParamsProcessor($this->params());
-        $params = $paramsProcessor->getValues();
         $issueIdentifier = $params['issue'];
 
         $issue = $this->issuesRepository->findByIdentifier($issueIdentifier);

@@ -4,7 +4,6 @@ namespace Crm\IssuesModule\Api;
 
 use Crm\ApiModule\Models\Api\ApiHandler;
 use Crm\ApiModule\Models\Params\InputParam;
-use Crm\ApiModule\Models\Params\ParamsProcessor;
 use Crm\IssuesModule\Repositories\IssuesRepository;
 use Crm\IssuesModule\Repositories\MagazinesRepository;
 use Nette\Application\LinkGenerator;
@@ -39,8 +38,6 @@ class IssuesListingApiHandler extends ApiHandler
     {
         $selectedYear = intval(date('Y'));
 
-        $paramsProcessor = new ParamsProcessor($this->params());
-        $params = $paramsProcessor->getValues();
         if (isset($params['year'])) {
             $selectedYear = intval($params['year']);
         }

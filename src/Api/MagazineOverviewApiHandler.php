@@ -4,7 +4,6 @@ namespace Crm\IssuesModule\Api;
 
 use Crm\ApiModule\Models\Api\ApiHandler;
 use Crm\ApiModule\Models\Params\InputParam;
-use Crm\ApiModule\Models\Params\ParamsProcessor;
 use Crm\IssuesModule\Repositories\IssuesRepository;
 use Crm\IssuesModule\Repositories\MagazinesRepository;
 use Nette\Application\LinkGenerator;
@@ -41,9 +40,6 @@ class MagazineOverviewApiHandler extends ApiHandler
 
     public function handle(array $params): ResponseInterface
     {
-        $paramsProcessor = new ParamsProcessor($this->params());
-        $params = $paramsProcessor->getValues();
-
         $magazine = $this->magazinesRepository->findByIdentifier($params['magazine']);
         if (!$magazine) {
             $response = new JsonApiResponse(Response::S404_NOT_FOUND, ['status' => 'error', 'message' => 'Magazine not found']);
