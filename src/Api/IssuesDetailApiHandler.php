@@ -3,10 +3,10 @@
 namespace Crm\IssuesModule\Api;
 
 use Crm\ApiModule\Models\Api\ApiHandler;
-use Crm\ApiModule\Models\Params\InputParam;
 use Crm\IssuesModule\Repositories\IssuesRepository;
 use Nette\Application\LinkGenerator;
 use Nette\Http\Response;
+use Tomaj\NetteApi\Params\GetInputParam;
 use Tomaj\NetteApi\Response\JsonApiResponse;
 use Tomaj\NetteApi\Response\ResponseInterface;
 
@@ -24,7 +24,7 @@ class IssuesDetailApiHandler extends ApiHandler
     public function params(): array
     {
         return [
-            new InputParam(InputParam::TYPE_GET, 'issue', InputParam::REQUIRED),
+            (new GetInputParam('issue'))->setRequired(),
         ];
     }
 
