@@ -23,7 +23,7 @@ class MagazineOverviewApiHandler extends ApiHandler
     public function __construct(
         MagazinesRepository $magazinesRepository,
         IssuesRepository $issuesRepository,
-        LinkGenerator $linkGenerator
+        LinkGenerator $linkGenerator,
     ) {
         $this->magazinesRepository = $magazinesRepository;
         $this->issuesRepository = $issuesRepository;
@@ -65,7 +65,7 @@ class MagazineOverviewApiHandler extends ApiHandler
                         ];
                     }, $this->issuesRepository->lastIssues($magazine, $year->year, 6)->fetchAll())),
                 ],
-                'link' => $this->linkGenerator->link('Api:Api:default', ['version' => 1, 'package' => 'issues', 'apiAction' => 'default', 'magazine' => $magazine->identifier, 'year' => $year->year])
+                'link' => $this->linkGenerator->link('Api:Api:default', ['version' => 1, 'package' => 'issues', 'apiAction' => 'default', 'magazine' => $magazine->identifier, 'year' => $year->year]),
             ];
         }
 

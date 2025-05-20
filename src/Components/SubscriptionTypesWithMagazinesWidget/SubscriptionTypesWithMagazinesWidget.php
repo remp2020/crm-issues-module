@@ -34,7 +34,7 @@ class SubscriptionTypesWithMagazinesWidget extends BaseLazyWidget
         MagazinesRepository $magazinesRepository,
         SubscriptionTypesRepository $subscriptionTypesRepository,
         SubscriptionTypeMagazinesRepository $subscriptionTypeMagazinesRepository,
-        LazyWidgetManager $lazyWidgetManager
+        LazyWidgetManager $lazyWidgetManager,
     ) {
         parent::__construct($lazyWidgetManager);
 
@@ -114,7 +114,7 @@ class SubscriptionTypesWithMagazinesWidget extends BaseLazyWidget
         $magazine = $this->magazinesRepository->find($magazineID);
         $this->getPresenter()->flashMessage($this->translator->translate(
             'issues.components.subscription_types_with_magazines.messages.added',
-            ['magazine_name' => $magazine->name]
+            ['magazine_name' => $magazine->name],
         ));
 
         $this->getPresenter()->redirect('SubscriptionTypesAdmin:Show', $subscriptionTypeID);
@@ -126,7 +126,7 @@ class SubscriptionTypesWithMagazinesWidget extends BaseLazyWidget
         $magazine = $this->magazinesRepository->find($magazineID);
         $this->getPresenter()->flashMessage($this->translator->translate(
             'issues.components.subscription_types_with_magazines.messages.removed',
-            ['magazine_name' => $magazine->name]
+            ['magazine_name' => $magazine->name],
         ));
 
         $this->getPresenter()->redirect('SubscriptionTypesAdmin:Show', $subscriptionTypeID);

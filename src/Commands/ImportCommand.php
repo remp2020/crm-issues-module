@@ -25,7 +25,7 @@ class ImportCommand extends Command
         private IssuesRepository $issuesRepository,
         private IssueSourceFilesRepository $issueSourceFilesRepository,
         private MagazinesRepository $magazinesRepository,
-        private IFilePatternProcessor $filePatternProcessor
+        private IFilePatternProcessor $filePatternProcessor,
     ) {
         parent::__construct();
     }
@@ -37,25 +37,25 @@ class ImportCommand extends Command
             ->addArgument(
                 'date',
                 InputArgument::REQUIRED,
-                'What day do you want to import'
+                'What day do you want to import',
             )
             ->addOption(
                 'magazine',
                 'm',
                 InputOption::VALUE_REQUIRED,
-                'Magazine identifier'
+                'Magazine identifier',
             )
             ->addOption(
                 'folder',
                 'f',
                 InputOption::VALUE_REQUIRED,
-                'Folder with files'
+                'Folder with files',
             )
             ->addOption(
                 'pattern',
                 'p',
                 InputOption::VALUE_OPTIONAL,
-                'Custom pattern for file matching (usable for non-standard issues)'
+                'Custom pattern for file matching (usable for non-standard issues)',
             )
             ->addOption(
                 'delete-source-after',

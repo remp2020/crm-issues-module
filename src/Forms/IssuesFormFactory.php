@@ -43,7 +43,7 @@ class IssuesFormFactory
         IssueSourceFilesRepository $issueSourceFilesRepository,
         MagazinesRepository $magazinesRepository,
         Translator $translator,
-        MountManager $mountManager
+        MountManager $mountManager,
     ) {
         $this->issuesRepository = $issuesRepository;
         $this->issueSourceFilesRepository = $issueSourceFilesRepository;

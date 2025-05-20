@@ -39,7 +39,7 @@ class IssuesRepository extends IssueBaseRepository
         $name,
         $isPublished = true,
         $state = self::STATE_NEW,
-        $checksum = null
+        $checksum = null,
     ) {
         $identifier = Random::generate(16);
         $id = $this->insert([
@@ -135,7 +135,7 @@ class IssuesRepository extends IssueBaseRepository
                 'issues_count',
                 $callable,
                 DateTime::from(CacheRepository::REFRESH_TIME_5_MINUTES),
-                $forceCacheUpdate
+                $forceCacheUpdate,
             );
         }
         return $callable();
@@ -182,7 +182,7 @@ class IssuesRepository extends IssueBaseRepository
             'magazine_id' => $magazine->id,
             'state' => self::STATE_OK,
             'issued_at <= ' => DateTime::from(strtotime('31.12.' . $year . '23:59:59')),
-            'issued_at >= ' => DateTime::from(strtotime('01.01.' . $year . '00:00:00'))
+            'issued_at >= ' => DateTime::from(strtotime('01.01.' . $year . '00:00:00')),
         ])->order('issued_at DESC')->limit($limit);
     }
 

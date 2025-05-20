@@ -32,7 +32,7 @@ class IssuesModule extends CrmModule
             ':Issues:IssuesAdmin:default',
             'fa fa-file',
             100,
-            true
+            true,
         );
 
         $menuItem2 = new MenuItem(
@@ -40,7 +40,7 @@ class IssuesModule extends CrmModule
             ':Issues:MagazinesAdmin:default',
             'fa fa-newspaper',
             200,
-            true
+            true,
         );
 
         $mainMenu->addChild($menuItem1);
@@ -94,7 +94,7 @@ class IssuesModule extends CrmModule
         $widgetManager->registerWidget(
             'subscription_types_admin.show.middle',
             SubscriptionTypesWithMagazinesWidget::class,
-            100
+            100,
         );
     }
 }

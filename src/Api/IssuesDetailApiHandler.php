@@ -89,7 +89,7 @@ class IssuesDetailApiHandler extends ApiHandler
                 'name' => $issue->name,
                 'magazine' => [
                     'name' => $issue->magazine->name,
-                    'link' => $this->linkGenerator->link('Api:Api:default', ['version' => 1, 'package' => 'magazines', 'apiAction' => 'default', 'magazine' => $issue->magazine->identifier])
+                    'link' => $this->linkGenerator->link('Api:Api:default', ['version' => 1, 'package' => 'magazines', 'apiAction' => 'default', 'magazine' => $issue->magazine->identifier]),
                 ],
                 'cover' => $this->linkGenerator->link('Issues:Download:cover', ['id' => $issue->identifier]),
                 'total_pages' => $totalPages,

@@ -32,7 +32,7 @@ class CoverFtpUploadCommand extends Command
         ApplicationMountManager $mountManager,
         IssuesRepository $issuesRepository,
         MagazinesRepository $magazinesRepository,
-        IssueSourceFilesRepository $issueSourceFilesRepository
+        IssueSourceFilesRepository $issueSourceFilesRepository,
     ) {
         parent::__construct();
         $this->issuesRepository = $issuesRepository;
@@ -48,19 +48,19 @@ class CoverFtpUploadCommand extends Command
             ->addArgument(
                 'date',
                 InputArgument::REQUIRED,
-                'What day do you want to import'
+                'What day do you want to import',
             )
             ->addOption(
                 'magazine',
                 'm',
                 InputOption::VALUE_REQUIRED,
-                'Magazine identifier'
+                'Magazine identifier',
             )
             ->addOption(
                 'format',
                 'f',
                 InputOption::VALUE_REQUIRED,
-                'File name format'
+                'File name format',
             )
         ;
     }

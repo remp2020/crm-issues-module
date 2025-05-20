@@ -31,25 +31,25 @@ class SyncFtpIssuesCommand extends Command
                 'host',
                 null,
                 InputOption::VALUE_REQUIRED,
-                'Ftp host'
+                'Ftp host',
             )
             ->addOption(
                 'username',
                 null,
                 InputOption::VALUE_REQUIRED,
-                'Ftp username'
+                'Ftp username',
             )
             ->addOption(
                 'password',
                 null,
                 InputOption::VALUE_REQUIRED,
-                'Ftp password'
+                'Ftp password',
             )
             ->addOption(
                 'local-folder',
                 null,
                 InputOption::VALUE_REQUIRED,
-                'Local folder'
+                'Local folder',
             )
             ->addOption(
                 'path',

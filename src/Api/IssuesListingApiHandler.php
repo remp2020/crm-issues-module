@@ -70,7 +70,7 @@ class IssuesListingApiHandler extends ApiHandler
             $yearsArray[] = [
                 'year' => $year->year,
                 'issues' => $year->count,
-                'link' => $this->linkGenerator->link('Api:Api:default', ['version' => 1, 'package' => 'issues', 'apiAction' => 'default', 'magazine' => $magazine->identifier, 'year' => $year->year])
+                'link' => $this->linkGenerator->link('Api:Api:default', ['version' => 1, 'package' => 'issues', 'apiAction' => 'default', 'magazine' => $magazine->identifier, 'year' => $year->year]),
             ];
         }
 
