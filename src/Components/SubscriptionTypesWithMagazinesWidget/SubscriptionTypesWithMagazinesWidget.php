@@ -44,7 +44,7 @@ class SubscriptionTypesWithMagazinesWidget extends BaseLazyWidget
         $this->translator = $translator;
     }
 
-    public function header($id = '')
+    public function header()
     {
         return 'Subscription Types With Magazines';
     }
